@@ -15,8 +15,8 @@ namespace ArizaApp.Models.Entities
         public string Surname { get; set; }
         
         [Required]
-        [Display(Name = "Bağlı Olduğu Departman")]
-        public string Department { get; set; }
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
 
         public string? Note { get; set; }
     }

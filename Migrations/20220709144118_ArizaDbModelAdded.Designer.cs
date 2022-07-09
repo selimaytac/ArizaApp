@@ -4,14 +4,16 @@ using ArizaApp.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArizaApp.Migrations
 {
     [DbContext(typeof(ArizaDbContext))]
-    partial class ArizaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220709144118_ArizaDbModelAdded")]
+    partial class ArizaDbModelAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,7 +194,7 @@ namespace ArizaApp.Migrations
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 9, 17, 57, 48, 742, DateTimeKind.Local).AddTicks(8823));
+                        .HasDefaultValue(new DateTime(2022, 7, 9, 17, 41, 17, 469, DateTimeKind.Local).AddTicks(3246));
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -228,58 +230,6 @@ namespace ArizaApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
-                });
-
-            modelBuilder.Entity("ArizaApp.Models.Entities.EmailRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmailRecords");
-                });
-
-            modelBuilder.Entity("ArizaApp.Models.Entities.FirmRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirmName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FirmRecords");
-                });
-
-            modelBuilder.Entity("EmailRecordFirmRecord", b =>
-                {
-                    b.Property<int>("EmailsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FirmsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmailsId", "FirmsId");
-
-                    b.HasIndex("FirmsId");
-
-                    b.ToTable("EmailRecordFirmRecord");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -404,21 +354,6 @@ namespace ArizaApp.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EmailRecordFirmRecord", b =>
-                {
-                    b.HasOne("ArizaApp.Models.Entities.EmailRecord", null)
-                        .WithMany()
-                        .HasForeignKey("EmailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ArizaApp.Models.Entities.FirmRecord", null)
-                        .WithMany()
-                        .HasForeignKey("FirmsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -6,10 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Models\ConstTypes" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <PackageReference Include="Mapster" Version="7.3.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
         <PrivateAssets>all</PrivateAssets>
@@ -23,6 +20,10 @@
       </PackageReference>
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\data-tables" />
     </ItemGroup>
 
 </Project>

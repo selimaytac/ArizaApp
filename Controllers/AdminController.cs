@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ArizaApp.Helpers;
+using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Dtos;
 using ArizaApp.Models.Entities;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArizaApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = RoleTypes.Admin)]
     public class AdminController : BaseController
     {
         public AdminController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
@@ -36,6 +40,27 @@ namespace ArizaApp.Controllers
             ViewBag.RoleList = ViewListHelper.GetRoles(DbContext);
 
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetUsers()
+        {
+            var users = UserManager.Users.Include(r => r.Department).ToList();
+
+            var userDtos = (from user in users
+                select new UserDto
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    DepartmentName = user.Department.DepartmentName,
+                    RoleName = (from role in UserManager.GetRolesAsync(user).Result select role).FirstOrDefault() ?? "Rol Yok",
+                    Note = user.Note,
+                    SendCount = user.SendCount
+                }).ToList();
+            
+            return View(userDtos);
         }
 
         [HttpPost]

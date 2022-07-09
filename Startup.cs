@@ -68,7 +68,7 @@ namespace ArizaApp
                 opts.Cookie = cookieBuilder;
                 opts.SlidingExpiration = true;
                 opts.ExpireTimeSpan = TimeSpan.FromDays(60);
-                opts.AccessDeniedPath = new PathString("/Member/AccessDenied");
+                opts.AccessDeniedPath = new PathString("/Home/AccessDenied");
             });
 
             services.Configure<SeedObject>(Configuration.GetSection("DefaultAdminUser"));

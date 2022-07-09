@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ArizaApp.Models;
+using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Dtos;
 using ArizaApp.Models.Entities;
@@ -22,9 +23,10 @@ namespace ArizaApp.Controllers
             : base(userManager, signInManager, roleManager, dbContext)
         {
         }
-
+        [Authorize(Roles = RoleTypes.AllRoles)]
         public IActionResult Index()
         {
+            ViewBag.CurrentUser = CurrentUser;
             return View();
         }
 
@@ -106,7 +108,7 @@ namespace ArizaApp.Controllers
 
             return View(userLogin);
         }
-
+        
         public void LogOut()
         {
             SignInManager.SignOutAsync();
@@ -116,7 +118,8 @@ namespace ArizaApp.Controllers
         {
             return View();
         }
-
+        
+        [Authorize(Roles = RoleTypes.AllRoles)]
         public IActionResult Privacy()
         {
             return View();

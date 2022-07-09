@@ -1,0 +1,50 @@
+@model IList<ArizaApp.Models.Dtos.UserDto>
+
+@{
+    ViewBag.Title = "Kullanıcılar";
+    Layout = "_Layout";
+}
+
+<a class="btn btn-primary font-weight-bold my-3" asp-action="CreateUser">Yeni Kullanıcı</a>
+
+<table id="example" class="display" style="width:100%">
+    <thead>
+    <tr>
+        <th>Kullanıcı Adı</th>
+        <th>Email</th>
+        <th>İsim</th>
+        <th>Soyisim</th>
+        <th>Departman</th>
+        <th>Rol</th>
+        <th>Not</th>
+        <th>Yollanan Mail</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>@user.Email</td>
+            <td>@user.Name</td>
+            <td>@user.Surname</td>
+            <td>@user.DepartmentName</td>
+            <td>@user.RoleName</td>
+            <td>@user.Note</td>
+            <td>@user.SendCount</td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Kullanıcı Adı</th>
+        <th>Email</th>
+        <th>İsim</th>
+        <th>Soyisim</th>
+        <th>Departman</th>
+        <th>Rol</th>
+        <th>Not</th>
+        <th>Yollanan Mail</th>
+    </tr>
+    </tfoot>
+</table>

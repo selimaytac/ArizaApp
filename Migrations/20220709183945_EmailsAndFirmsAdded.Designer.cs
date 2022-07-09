@@ -4,14 +4,16 @@ using ArizaApp.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArizaApp.Migrations
 {
     [DbContext(typeof(ArizaDbContext))]
-    partial class ArizaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220709183945_EmailsAndFirmsAdded")]
+    partial class EmailsAndFirmsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

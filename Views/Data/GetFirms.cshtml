@@ -1,0 +1,36 @@
+@model System.Collections.Generic.List<ArizaApp.Models.Entities.FirmRecord>
+
+@{
+    ViewBag.Title = "Firmalar";
+    Layout = "_Layout";
+}
+
+<a class="btn btn-primary font-weight-bold my-3" asp-action="CreateFirm" asp-controller="Data">Yeni Firma</a>
+
+<table id="getFirms" class="display" style="width:100%">
+    <thead>
+    <tr class="text-center">
+        <th>Firma Adı</th>
+        <th>EmailAdresleri</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var firm in Model)
+    {
+        <tr class="text-center">
+            <td>@firm.FirmName</td>
+            <td style="max-width: 200px;">
+                @foreach (var email in firm.Emails)
+                {
+                    <span class="badge badge-primary">@email.EmailAddress </span>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Firma Adı</th>
+    </tr>
+    </tfoot>
+</table>

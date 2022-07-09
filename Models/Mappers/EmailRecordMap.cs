@@ -11,7 +11,7 @@ namespace ArizaApp.Models.Mappers
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
             builder.Property(e => e.EmailAddress).HasMaxLength(100).IsRequired();
-            builder.Property(e => e.IsActive).IsRequired();
+            builder.Property(e => e.EmailDescription).HasMaxLength(150).IsRequired();
         }
     }
 }

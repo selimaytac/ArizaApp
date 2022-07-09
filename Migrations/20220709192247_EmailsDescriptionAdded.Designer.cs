@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArizaApp.Migrations
 {
     [DbContext(typeof(ArizaDbContext))]
-    [Migration("20220709145749_FirmsAndEmailsAdded")]
-    partial class FirmsAndEmailsAdded
+    [Migration("20220709192247_EmailsDescriptionAdded")]
+    partial class EmailsDescriptionAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -194,7 +194,7 @@ namespace ArizaApp.Migrations
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 9, 17, 57, 48, 742, DateTimeKind.Local).AddTicks(8823));
+                        .HasDefaultValue(new DateTime(2022, 7, 9, 22, 22, 47, 367, DateTimeKind.Local).AddTicks(5175));
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -244,8 +244,10 @@ namespace ArizaApp.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<string>("EmailDescription")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 

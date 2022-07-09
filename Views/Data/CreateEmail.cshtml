@@ -1,0 +1,29 @@
+@model ArizaApp.Models.Dtos.CreateEmailDto
+
+@{
+    Layout = null;
+}
+
+<h1 class="text-center">Yeni Email Adresi Kayıt Formu</h1>
+
+<hr/>
+<div class="row">
+    <div class="offset-md-4 col-md-4">
+        <form asp-action="CreateEmail" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control"/>
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailDescription" class="control-label"></label>
+                <input asp-for="EmailDescription" class="form-control"/>
+                <span asp-validation-for="EmailDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Email Adresini Ekle" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>

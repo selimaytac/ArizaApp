@@ -7,7 +7,7 @@
 
 <a class="btn btn-primary font-weight-bold my-3" asp-action="CreateUser">Yeni Kullanıcı</a>
 
-<table id="example" class="display" style="width:100%">
+<table id="getUsers" class="display" style="width:100%">
     <thead>
     <tr>
         <th>Kullanıcı Adı</th>
@@ -23,7 +23,7 @@
     <tbody>
     @foreach (var user in Model)
     {
-        <tr>
+        <tr class="text-center">
             <td>@user.UserName</td>
             <td>@user.Email</td>
             <td>@user.Name</td>

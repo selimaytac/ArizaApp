@@ -7,7 +7,8 @@ namespace ArizaApp.Models.Entities
     {
         public int Id { get; set; }
         public string EmailAddress { get; set; }
-        public bool IsActive { get; set; }
+        
+        public string EmailDescription { get; set; }
         public IEnumerable<FirmRecord> Firms { get; set; }
     }
 }

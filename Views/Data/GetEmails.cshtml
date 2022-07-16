@@ -7,9 +7,9 @@
 
 <a class="btn btn-primary font-weight-bold my-3" asp-action="CreateEmail" asp-controller="Data">Email Ekle</a>
 
-<table id="getEmails" class="display" style="width:100%">
+<table id="getEmails" class="display table table-bordered" style="width:100%">
     <thead>
-    <tr class="text-center">
+    <tr>
         <th>Email Adresi</th>
         <th>Email Açıklaması</th>
         <th>İşlemler</th>
@@ -18,13 +18,13 @@
     <tbody>
     @foreach (var email in Model)
     {
-        <tr class="text-center">
+        <tr>
             <td>@email.EmailAddress</td>
             <td>@email.EmailDescription</td>
             <td>
                 @* TODO: Add detail and delete *@
-                <a asp-for="EmailDetail" asp-controller="Data" asp-route-id="@email.Id" class="btn btn-danger btn-sm">Detaylar</a>
-                <a asp-for="EmailDelete" asp-controller="Data" asp-route-id="@email.Id" class="btn btn-danger btn-sm">Sil</a>
+                <a asp-controller="Data" asp-action="UpdateEmail" asp-route-id="@email.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                <a asp-controller="Data" asp-action="DeleteConfirmEmail" asp-route-id="@email.Id" class="btn btn-danger btn-sm">Sil</a>
             </td>
         </tr>
     }
@@ -33,6 +33,7 @@
     <tr>
         <th>Email Adresi</th>
         <th>Email Açıklaması</th>
+        <th>İşlemler</th>
     </tr>
     </tfoot>
 </table>

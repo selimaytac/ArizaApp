@@ -7,17 +7,18 @@
 
 <a class="btn btn-primary font-weight-bold my-3" asp-action="CreateFirm" asp-controller="Data">Yeni Firma</a>
 
-<table id="getFirms" class="display" style="width:100%">
+<table id="getFirms" class="display table table-bordered" style="width:100%">
     <thead>
-    <tr class="text-center">
+    <tr>
         <th>Firma Adı</th>
-        <th>EmailAdresleri</th>
+        <th>Email Adresleri</th>
+        <th>İşlemler</th>
     </tr>
     </thead>
     <tbody>
     @foreach (var firm in Model)
     {
-        <tr class="text-center">
+        <tr>
             <td>@firm.FirmName</td>
             <td style="max-width: 200px;">
                 @foreach (var email in firm.Emails)
@@ -25,12 +26,18 @@
                     <span class="badge badge-primary">@email.EmailAddress </span>
                 }
             </td>
+            <td>
+                <a asp-controller="Data" asp-action="UpdateFirm" asp-route-id="@firm.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                <a asp-controller="Data" asp-action="DeleteConfirmFirm" asp-route-id="@firm.Id" class="btn btn-danger btn-sm">Sil</a>
+            </td>
         </tr>
     }
     </tbody>
     <tfoot>
     <tr>
         <th>Firma Adı</th>
+        <th>EmailAdresleri</th>
+        <th>İşlemler</th>
     </tr>
     </tfoot>
 </table>

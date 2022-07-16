@@ -1,0 +1,31 @@
+@model ArizaApp.Models.Dtos.UpdateEmailDto
+
+@{
+    ViewData["Title"] = "Mail Adresini Güncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1><span class="font-weight-bold">@Model.EmailAddress</span> Adresini Güncelle</h1>
+<h4 class="text-danger">Not: Email adresini güncellemek, bağlı olduğu şirket için de güncellenecektir!</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateEmail">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailDescription" class="control-label"></label>
+                <input asp-for="EmailDescription" class="form-control" />
+                <span asp-validation-for="EmailDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Güncelle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -3,8 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ArizaApp.Models.Dtos
 {
-    public class CreateFirmDto
+    public class UpdateFirmDto
     {
+        public int Id { get; set; }
         [Required]
         [DisplayName("Firma Adı")]
         public string FirmName { get; set; }

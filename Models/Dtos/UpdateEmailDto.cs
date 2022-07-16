@@ -1,16 +1,22 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ArizaApp.Models.Entities;
 
 namespace ArizaApp.Models.Dtos
 {
-    public class CreateEmailDto
+    public class UpdateEmailDto
     {
-        [DisplayName("Email Adresi")]
         [Required]
+        public int Id { get; set; }
+        
+        [Required]
+        [DisplayName("Email Adresi")]
         [EmailAddress]
         public string EmailAddress { get; set; }
-        [DisplayName("Email Adresi Açıklaması")]
+        
         [Required]
+        [DisplayName("Email Adresi Açıklaması")]
         public string EmailDescription { get; set; }
     }
 }

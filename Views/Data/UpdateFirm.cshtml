@@ -1,0 +1,66 @@
+@model ArizaApp.Models.Dtos.UpdateFirmDto
+
+@{
+    ViewData["Title"] = "Mail Adresini Güncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1><span class="font-weight-bold">@Model.FirmName</span> Firmasını Güncelle</h1>
+<h4 class="text-warning">Not: Seçili gelen maillerin seçimini kaldırmak mail adresini firmadan silecektir.</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateFirm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id"/>
+            <div class="form-group">
+                <label asp-for="FirmName" class="control-label"></label>
+                <input asp-for="FirmName" class="form-control"/>
+                <span asp-validation-for="FirmName" class="text-danger"></span>
+            </div>
+            
+            @if(ViewBag.NotIncludedEmailsMultiSelectList != null){
+            <div class="form-group">
+                <label class="control-label">Firmaya <span class="text-success">eklemek</span> istediğiniz ilgili mailleri seçiniz.</label>
+                @Html.DropDownList("AddedEmailIds", (MultiSelectList) ViewBag.NotIncludedEmailsMultiSelectList, new {multiple = "multiple"})
+            </div>
+            }
+            
+            @if(ViewBag.CurrentEmailsMultiSelectList != null){
+            <div class="form-group">
+                <label class="control-label">Firmadan <span class="text-danger">silmek</span> istediğiniz ilgili mailleri seçiniz.</label>
+                @Html.DropDownList("DeletedEmailIds", (MultiSelectList) ViewBag.CurrentEmailsMultiSelectList, new {multiple = "multiple"})
+            </div>
+            }
+            
+            <div class="form-group">
+                <input type="submit" value="Güncelle" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Old code: select current emails before page loading *@
+@* <script > *@
+@*     let emailIds = []; *@
+@*      *@
+@*     @foreach (var id in Model.EmailIds) *@
+@*     { *@
+@*       @:emailIds.push("@id");   *@
+@*     } *@
+@*     //TODO: when option is selected, unselect other options, prevent that. *@
+@*      *@
+@*     let emailOptions = document.querySelector("#EmailIds").options; *@
+@*      *@
+@*     for (let i = 0; i < emailOptions.length; i++) *@
+@*     { *@
+@*       for (let j = 0; j < emailIds.length; j++) *@
+@*       { *@
+@*         if (emailOptions[i].value === emailIds[j]) *@
+@*         { *@
+@*           emailOptions[i].selected = true; *@
+@*         } *@
+@*       } *@
+@*     } *@
+@* *@
+@* </script> *@

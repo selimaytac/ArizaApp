@@ -1,4 +1,5 @@
 using ArizaApp.Models.Entities;
+using ArizaApp.Models.Mappers;
 using ArizaApp.Models.Seed;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,10 @@ namespace ArizaApp.Models.DbContexts
 {
     public class ArizaDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
-
-        // public DbSet<ArizaModel> ArizaModels { get; set; }
-
+        public DbSet<ArizaModel> ArizaModels { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<EmailRecord> EmailRecords { get; set; }
+        public DbSet<FirmRecord> FirmRecords { get; set; }
         public ArizaDbContext(DbContextOptions<ArizaDbContext> options) : base(options)
         {
         }
@@ -22,6 +24,10 @@ namespace ArizaApp.Models.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new DepartmentMap());
+            modelBuilder.ApplyConfiguration(new ArizaModelMap());
+            modelBuilder.ApplyConfiguration(new EmailRecordMap());
+            modelBuilder.ApplyConfiguration(new FirmRecordMap());
             base.OnModelCreating(modelBuilder);
         }
     }

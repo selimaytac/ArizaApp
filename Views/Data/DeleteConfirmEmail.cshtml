@@ -1,0 +1,31 @@
+@model ArizaApp.Models.Dtos.UpdateEmailDto
+
+@{
+    ViewData["Title"] = "DeleteEmail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Email Adresini Sil</h1>
+
+<h3 class="text-danger"><span class="font-weight-bold">@Model.EmailAddress</span> adresini silmek istediğinize emin misiniz?</h3>
+<h4 class="text-warning">Bu mail adresini silmek bağlı olduğu firmalardan da email adresini silecektir.</h4>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-3 border">
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+        <dt class = "col-sm-3 border">
+            @Html.DisplayNameFor(model => model.EmailDescription)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.EmailDescription)
+        </dd>
+    </dl>
+    
+    <span class="text-sm-center text-danger">Bu işlem geri alınamaz!</span><br>
+    <a asp-for="EmailDelete" asp-controller="Data" asp-action="DeleteEmail" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Mail Adresini Sil</a>
+</div>

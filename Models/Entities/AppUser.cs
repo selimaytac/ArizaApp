@@ -8,16 +8,14 @@ namespace ArizaApp.Models.Entities
 {
     public class AppUser : IdentityUser
     {
-        [Required]
-        public string Name { get; set; }
+        [Required] public string Name { get; set; }
 
-        [Required]
-        public string Surname { get; set; }
-        
-        [Required]
-        [Display(Name = "Bağlı Olduğu Departman")]
-        public string Department { get; set; }
+        [Required] public string Surname { get; set; }
 
+        [Required] public int DepartmentId { get; set; }
+        public Department Department { get; set; }
+        public IEnumerable<ArizaModel> Arizalar { get; set; }
+        public int SendCount { get; set; } = 0;
         public string? Note { get; set; }
     }
 }

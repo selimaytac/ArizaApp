@@ -4,14 +4,16 @@ using ArizaApp.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArizaApp.Migrations
 {
     [DbContext(typeof(ArizaDbContext))]
-    partial class ArizaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220709102306_DepartmentAdded")]
+    partial class DepartmentAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,9 +103,6 @@ namespace ArizaApp.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SendCount")
-                        .HasColumnType("int");
-
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -130,85 +129,6 @@ namespace ArizaApp.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("ArizaApp.Models.Entities.ArizaModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AffectedFirms")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("AffectedServices")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<bool>("AlarmStatus")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ApprovedBy")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FailureCause")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("FaultNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FaultType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("NotifiedBy")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Priority")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("SendMail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 9, 22, 22, 47, 367, DateTimeKind.Local).AddTicks(5175));
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ArizaModels");
-                });
-
             modelBuilder.Entity("ArizaApp.Models.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -228,60 +148,6 @@ namespace ArizaApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
-                });
-
-            modelBuilder.Entity("ArizaApp.Models.Entities.EmailRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("EmailDescription")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmailRecords");
-                });
-
-            modelBuilder.Entity("ArizaApp.Models.Entities.FirmRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirmName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FirmRecords");
-                });
-
-            modelBuilder.Entity("EmailRecordFirmRecord", b =>
-                {
-                    b.Property<int>("EmailsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FirmsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmailsId", "FirmsId");
-
-                    b.HasIndex("FirmsId");
-
-                    b.ToTable("EmailRecordFirmRecord");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -399,30 +265,6 @@ namespace ArizaApp.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("ArizaApp.Models.Entities.ArizaModel", b =>
-                {
-                    b.HasOne("ArizaApp.Models.Entities.AppUser", "User")
-                        .WithMany("Arizalar")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EmailRecordFirmRecord", b =>
-                {
-                    b.HasOne("ArizaApp.Models.Entities.EmailRecord", null)
-                        .WithMany()
-                        .HasForeignKey("EmailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ArizaApp.Models.Entities.FirmRecord", null)
-                        .WithMany()
-                        .HasForeignKey("FirmsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("ArizaApp.Models.Entities.AppRole", null)
@@ -472,11 +314,6 @@ namespace ArizaApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ArizaApp.Models.Entities.AppUser", b =>
-                {
-                    b.Navigation("Arizalar");
                 });
 
             modelBuilder.Entity("ArizaApp.Models.Entities.Department", b =>

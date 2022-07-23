@@ -4,14 +4,16 @@ using ArizaApp.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArizaApp.Migrations
 {
     [DbContext(typeof(ArizaDbContext))]
-    partial class ArizaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220709183945_EmailsAndFirmsAdded")]
+    partial class EmailsAndFirmsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,7 +194,7 @@ namespace ArizaApp.Migrations
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 9, 22, 22, 47, 367, DateTimeKind.Local).AddTicks(5175));
+                        .HasDefaultValue(new DateTime(2022, 7, 9, 21, 39, 45, 281, DateTimeKind.Local).AddTicks(1811));
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -242,10 +244,8 @@ namespace ArizaApp.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("EmailDescription")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

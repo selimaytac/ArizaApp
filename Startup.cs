@@ -68,7 +68,7 @@ namespace ArizaApp
                 opts.Cookie = cookieBuilder;
                 opts.SlidingExpiration = true;
                 opts.ExpireTimeSpan = TimeSpan.FromDays(60);
-                opts.AccessDeniedPath = new PathString("/Member/AccessDenied");
+                opts.AccessDeniedPath = new PathString("/Home/AccessDenied");
             });
 
             services.Configure<SeedObject>(Configuration.GetSection("DefaultAdminUser"));
@@ -92,6 +92,9 @@ namespace ArizaApp
 
             app.UseRouting();
             
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.Use(async (context, next) =>
             {
                 var dbContext = context.RequestServices.GetService<ArizaDbContext>();
@@ -101,10 +104,7 @@ namespace ArizaApp
                 await SeedDb.InitializeUser(context.RequestServices, seedObject);
                 await next.Invoke();
             });
-            
-        
 
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

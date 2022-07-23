@@ -23,6 +23,13 @@ namespace ArizaApp.Models.Seed
             
             var userManager = serviceProvider.GetService<UserManager<AppUser>>();
 
+            context.Departments.Add(new Department
+            {
+                DepartmentName = seedObject.Department
+            });
+
+            await context.SaveChangesAsync();
+            
             var user = new AppUser
             {
                 UserName = seedObject.UserName,
@@ -30,7 +37,7 @@ namespace ArizaApp.Models.Seed
                 Name = seedObject.Name,
                 Surname = seedObject.Surname,
                 Note = seedObject.Note,
-                Department = seedObject.Department
+                DepartmentId = 1 
             };
             
             if (!context.Users.Any(u => u.UserName == user.UserName))

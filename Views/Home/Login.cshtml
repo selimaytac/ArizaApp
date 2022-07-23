@@ -1,0 +1,39 @@
+@model ArizaApp.Models.Dtos.LoginDto
+
+@{
+    Layout = "";
+    ViewBag.Title = "Giriş Yap";
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<!DOCTYPE html>
+
+<hr />
+<div class="row mt-5">
+    <div class="col-md-2 offset-md-5">
+        <h1 class="text-center">Üye Giriş Formu</h1>
+        <form asp-action="LogIn" method="post" class="text-center">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label font-weight-bold"></label>
+                <input asp-for="Email" class="form-control" placeholder="Email..."/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label font-weight-bold"></label>
+                <input asp-for="Password" class="form-control" placeholder="Sifreniz..."/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" asp-for="RememberMe"> Beni Hatırla
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Giriş Yap" class="btn btn-primary" />
+            </div>
+            @* <a class="btn btn-link" asp-action="ResetPassword">Şifremi Unuttum</a> TODO: Şifre sıfırlama eklenecek.*@ 
+        </form>
+    </div>
+</div>

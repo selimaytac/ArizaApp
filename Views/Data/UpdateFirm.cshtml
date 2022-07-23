@@ -18,10 +18,21 @@
                 <input asp-for="FirmName" class="form-control"/>
                 <span asp-validation-for="FirmName" class="text-danger"></span>
             </div>
+            
+            @if(ViewBag.NotIncludedEmailsMultiSelectList != null){
             <div class="form-group">
-                <label class="control-label">Firmaya ile ilgili mailleri seçiniz.</label>
-                @Html.DropDownList("EmailIds", (MultiSelectList) ViewBag.MultiSelectList, new {multiple = "multiple"})
+                <label class="control-label">Firmaya <span class="text-success">eklemek</span> istediğiniz ilgili mailleri seçiniz.</label>
+                @Html.DropDownList("AddedEmailIds", (MultiSelectList) ViewBag.NotIncludedEmailsMultiSelectList, new {multiple = "multiple"})
             </div>
+            }
+            
+            @if(ViewBag.CurrentEmailsMultiSelectList != null){
+            <div class="form-group">
+                <label class="control-label">Firmadan <span class="text-danger">silmek</span> istediğiniz ilgili mailleri seçiniz.</label>
+                @Html.DropDownList("DeletedEmailIds", (MultiSelectList) ViewBag.CurrentEmailsMultiSelectList, new {multiple = "multiple"})
+            </div>
+            }
+            
             <div class="form-group">
                 <input type="submit" value="Güncelle" class="btn btn-primary"/>
             </div>
@@ -29,26 +40,27 @@
     </div>
 </div>
 
-<script >
-    let emailIds = [];
-    
-    @foreach (var id in Model.EmailIds)
-    {
-      @:emailIds.push("@id");  
-    }
-    //TODO: when option is selected, unselect other options, prevent that.
-    
-    let emailOptions = document.querySelector("#EmailIds").options;
-    
-    for (let i = 0; i < emailOptions.length; i++)
-    {
-      for (let j = 0; j < emailIds.length; j++)
-      {
-        if (emailOptions[i].value === emailIds[j])
-        {
-          emailOptions[i].selected = true;
-        }
-      }
-    }
-
-</script>
+@* Old code: select current emails before page loading *@
+@* <script > *@
+@*     let emailIds = []; *@
+@*      *@
+@*     @foreach (var id in Model.EmailIds) *@
+@*     { *@
+@*       @:emailIds.push("@id");   *@
+@*     } *@
+@*     //TODO: when option is selected, unselect other options, prevent that. *@
+@*      *@
+@*     let emailOptions = document.querySelector("#EmailIds").options; *@
+@*      *@
+@*     for (let i = 0; i < emailOptions.length; i++) *@
+@*     { *@
+@*       for (let j = 0; j < emailIds.length; j++) *@
+@*       { *@
+@*         if (emailOptions[i].value === emailIds[j]) *@
+@*         { *@
+@*           emailOptions[i].selected = true; *@
+@*         } *@
+@*       } *@
+@*     } *@
+@* *@
+@* </script> *@

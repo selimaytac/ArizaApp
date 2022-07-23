@@ -9,6 +9,7 @@ namespace ArizaApp.Models.Dtos
         [Required]
         [DisplayName("Firma Adı")]
         public string FirmName { get; set; }
-        public int[]  EmailIds { get; set; } 
+        public int[]  AddedEmailIds { get; set; }
+        public int[]  DeletedEmailIds { get; set; }
     }
 }

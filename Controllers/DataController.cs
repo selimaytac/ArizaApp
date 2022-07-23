@@ -44,6 +44,15 @@ namespace ArizaApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                var emailExist =
+                    await DbContext.EmailRecords.FirstOrDefaultAsync(x =>
+                        x.EmailAddress == createEmailDto.EmailAddress);
+                if (emailExist != null)
+                {
+                    ModelState.AddModelError("", "Email adresi zaten mevcut!");
+                    return View(createEmailDto);
+                }
+
                 var email = new EmailRecord
                 {
                     EmailAddress = createEmailDto.EmailAddress,
@@ -79,6 +88,16 @@ namespace ArizaApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                var emailExist =
+                    await DbContext.EmailRecords.FirstOrDefaultAsync(x =>
+                        x.EmailAddress == updateEmailDto.EmailAddress);
+                
+                if (emailExist != null && emailExist.Id != updateEmailDto.Id)
+                {
+                    ModelState.AddModelError("", "Bu isimle başka bir Email adresi zaten mevcut!");
+                    return View(updateEmailDto);
+                }
+
                 var email = await DbContext.EmailRecords.FindAsync(updateEmailDto.Id);
 
                 if (email == null) return RedirectToAction("GetEmails");
@@ -148,6 +167,13 @@ namespace ArizaApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                var firm = await DbContext.FirmRecords.FirstOrDefaultAsync(f => f.FirmName == createFirmDto.FirmName);
+                if (firm != null)
+                {
+                    ModelState.AddModelError("", "Firma zaten mevcut.");
+                    return View(createFirmDto);
+                }
+
                 var emails = new List<EmailRecord>();
 
                 if (createFirmDto.EmailIds != null)
@@ -179,13 +205,16 @@ namespace ArizaApp.Controllers
 
             var firmDto = firm.Adapt<UpdateFirmDto>();
 
-            firmDto.EmailIds = firm.Emails.Select(x => x.Id).ToArray();
+            var emails = await DbContext.EmailRecords.AsNoTracking()
+                .ToListAsync();
 
-            var emails = await DbContext.EmailRecords.AsNoTracking().ToListAsync();
-            if (emails.Count != 0)
-            {
-                ViewBag.MultiSelectList = new MultiSelectList(emails, "Id", "EmailAddress");
-            }
+            var canAddToFirm = emails.Where(e => !firm.Emails.Select(x => x.Id).Contains(e.Id)).ToList();
+            if (canAddToFirm.Count != 0)
+                ViewBag.NotIncludedEmailsMultiSelectList = new MultiSelectList(canAddToFirm, "Id", "EmailAddress");
+
+            var canDeleteFromFirm = firm.Emails.ToList();
+            if (canDeleteFromFirm.Count != 0)
+                ViewBag.CurrentEmailsMultiSelectList = new MultiSelectList(canDeleteFromFirm, "Id", "EmailAddress");
 
             return View(firmDto);
         }
@@ -201,13 +230,26 @@ namespace ArizaApp.Controllers
 
                 if (firm == null) return RedirectToAction("GetFirms");
 
+                var firmName =
+                    await DbContext.FirmRecords.FirstOrDefaultAsync(x => x.FirmName == updateFirmDto.FirmName);
+                if (firmName != null && firmName.Id != firm.Id)
+                {
+                    ModelState.AddModelError("", "Firma zaten mevcut.");
+                    return View(updateFirmDto);
+                }
+
                 firm.FirmName = updateFirmDto.FirmName;
 
-                if (updateFirmDto.EmailIds != null)
-                    firm.Emails = await DbContext.EmailRecords.Where(x => updateFirmDto.EmailIds.Contains(x.Id))
-                        .ToListAsync();
-                else
-                    firm.Emails = new List<EmailRecord>();
+                var updatedFirmEmails = firm.Emails.ToList();
+
+                if (updateFirmDto.AddedEmailIds != null)
+                    updatedFirmEmails
+                        .AddRange(DbContext.EmailRecords.Where(x => updateFirmDto.AddedEmailIds.Contains(x.Id)));
+
+                if (updateFirmDto.DeletedEmailIds != null)
+                    updatedFirmEmails.RemoveAll(x => updateFirmDto.DeletedEmailIds.Contains(x.Id));
+
+                firm.Emails = updatedFirmEmails;
 
                 await DbContext.SaveChangesAsync();
                 return RedirectToAction("GetFirms");

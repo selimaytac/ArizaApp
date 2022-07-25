@@ -1,0 +1,2 @@
+.dataTables_filter > label > input{border: #4e555b 1px solid;}
+.dataTables_filter > .is-focused > input:focus{border: #4e555b 1px solid;}

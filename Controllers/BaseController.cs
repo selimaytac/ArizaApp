@@ -14,7 +14,7 @@ namespace ArizaApp.Controllers
 
         protected ArizaDbContext DbContext { get; }
 
-        protected AppUser CurrentUser => UserManager.FindByNameAsync(User.Identity.Name).Result;
+        protected AppUser CurrentUser => UserManager.FindByNameAsync(User.Identity?.Name).Result;
 
         public BaseController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
             RoleManager<AppRole> roleManager, ArizaDbContext dbContext)

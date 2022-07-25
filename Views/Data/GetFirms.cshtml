@@ -1,4 +1,4 @@
-@model System.Collections.Generic.List<ArizaApp.Models.Entities.FirmRecord>
+@model List<ArizaApp.Models.Entities.FirmRecord>
 
 @{
     ViewBag.Title = "Firmalar";
@@ -12,18 +12,18 @@
     <tr>
         <th>Firma Adı</th>
         <th>Email Adresleri</th>
-        <th>İşlemler</th>
+        <th style="max-width: 300px">İşlemler</th>
     </tr>
     </thead>
     <tbody>
     @foreach (var firm in Model)
     {
-        <tr>
+        <tr class="text-center">
             <td>@firm.FirmName</td>
             <td style="max-width: 200px;">
                 @foreach (var email in firm.Emails)
                 {
-                    <span class="badge badge-primary">@email.EmailAddress </span>
+                    <span class="badge bg-success">@email.EmailAddress </span>
                 }
             </td>
             <td>
@@ -37,7 +37,7 @@
     <tr>
         <th>Firma Adı</th>
         <th>EmailAdresleri</th>
-        <th>İşlemler</th>
+        <th style="max-width: 300px">İşlemler</th>
     </tr>
     </tfoot>
 </table>

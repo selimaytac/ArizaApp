@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using ArizaApp.Models;
 using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Dtos;
@@ -13,6 +7,7 @@ using ArizaApp.Models.Entities;
 using ArizaApp.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ArizaApp.Controllers
 {
@@ -23,6 +18,7 @@ namespace ArizaApp.Controllers
             : base(userManager, signInManager, roleManager, dbContext)
         {
         }
+
         [Authorize(Roles = RoleTypes.AllRoles)]
         public IActionResult Index()
         {
@@ -34,6 +30,8 @@ namespace ArizaApp.Controllers
         [HttpGet]
         public IActionResult LogIn(string returnUrl)
         {
+            if (User.Identity is {IsAuthenticated: true}) return RedirectToAction("Index");
+            
             TempData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -108,7 +106,7 @@ namespace ArizaApp.Controllers
 
             return View(userLogin);
         }
-        
+
         public void LogOut()
         {
             SignInManager.SignOutAsync();
@@ -118,7 +116,7 @@ namespace ArizaApp.Controllers
         {
             return View();
         }
-        
+
         [Authorize(Roles = RoleTypes.AllRoles)]
         public IActionResult Privacy()
         {

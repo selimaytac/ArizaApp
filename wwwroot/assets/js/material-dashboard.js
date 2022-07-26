@@ -121,29 +121,31 @@ if (document.querySelector('.fixed-plugin')) {
 }
 
 //Set Sidebar Color
-function sidebarColor(a) {
-  var parent = document.querySelector(".nav-link.active");
-  var color = a.getAttribute("data-color");
+function sidebarColor(color) {
+    var parent = document.querySelectorAll("#sidenav-collapse-main > .navbar-nav > .nav-item > .nav-link");
+    localStorage.setItem("color", color);
 
-  if (parent.classList.contains('bg-gradient-primary')) {
-    parent.classList.remove('bg-gradient-primary');
-  }
-  if (parent.classList.contains('bg-gradient-dark')) {
-    parent.classList.remove('bg-gradient-dark');
-  }
-  if (parent.classList.contains('bg-gradient-info')) {
-    parent.classList.remove('bg-gradient-info');
-  }
-  if (parent.classList.contains('bg-gradient-success')) {
-    parent.classList.remove('bg-gradient-success');
-  }
-  if (parent.classList.contains('bg-gradient-warning')) {
-    parent.classList.remove('bg-gradient-warning');
-  }
-  if (parent.classList.contains('bg-gradient-danger')) {
-    parent.classList.remove('bg-gradient-danger');
-  }
-  parent.classList.add('bg-gradient-' + color);
+    for (let i = 0; i < parent.length; i++) {
+        if (parent[i].classList.contains('bg-gradient-primary')) {
+            parent[i].classList.remove('bg-gradient-primary');
+        }
+        if (parent[i].classList.contains('bg-gradient-dark')) {
+            parent[i].classList.remove('bg-gradient-dark');
+        }
+        if (parent[i].classList.contains('bg-gradient-info')) {
+            parent[i].classList.remove('bg-gradient-info');
+        }
+        if (parent[i].classList.contains('bg-gradient-success')) {
+            parent[i].classList.remove('bg-gradient-success');
+        }
+        if (parent[i].classList.contains('bg-gradient-warning')) {
+            parent[i].classList.remove('bg-gradient-warning');
+        }
+        if (parent[i].classList.contains('bg-gradient-danger')) {
+            parent[i].classList.remove('bg-gradient-danger');
+        }
+        parent[i].classList.add('bg-gradient-' + color);
+    }
 }
 
 // Set Sidebar Type
@@ -153,7 +155,7 @@ function sidebarType(a) {
     var body = document.querySelector("body");
     var bodyWhite = document.querySelector("body:not(.dark-version)");
     var bodyDark = body.classList.contains('dark-version');
-
+    localStorage.setItem("navbarType", a.id);
     var colors = [];
 
     for (var i = 0; i < parent.length; i++) {
@@ -233,19 +235,22 @@ function sidebarType(a) {
 // Set Navbar Fixed
 function navbarFixed(el) {
     let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
+    let value = true;
     const navbar = document.getElementById('navbarBlur');
-
     if (!el.getAttribute("checked")) {
         navbar.classList.add(...classes);
         navbar.setAttribute('navbar-scroll', 'true');
         navbarBlurOnScroll('navbarBlur');
         el.setAttribute("checked", "true");
+        value = true;
     } else {
         navbar.classList.remove(...classes);
         navbar.setAttribute('navbar-scroll', 'false');
         navbarBlurOnScroll('navbarBlur');
         el.removeAttribute("checked");
+        value = false;
     }
+    localStorage.setItem("navbarFixed", value);
 }
 
 
@@ -674,8 +679,9 @@ function darkMode(el) {
     const card_border_dark = document.querySelectorAll('.card.border.border-dark');
 
     const svg = document.querySelectorAll('g');
-
+    let bool = true;
     if (!el.getAttribute("checked")) {
+        bool = true;
         body.classList.add('dark-version');
         for (var i = 0; i < hr.length; i++) {
             if (hr[i].classList.contains('dark')) {
@@ -741,6 +747,7 @@ function darkMode(el) {
         }
         el.setAttribute("checked", "true");
     } else {
+        bool = false;
         body.classList.remove('dark-version');
         for (var i = 0; i < hr.length; i++) {
             if (hr[i].classList.contains('light')) {
@@ -807,4 +814,6 @@ function darkMode(el) {
         }
         el.removeAttribute("checked");
     }
+
+    localStorage.setItem("darkMode", bool);
 }

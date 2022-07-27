@@ -1,8 +1,12 @@
 trigger:
  - master
 
-pool:
-  vmImage: 'WindowsPool'
+pool: 'WindowsPool'
+
+variables:
+  solution: '**/*.csproj'
+  runtime: 'win-x64'
+  configuration: 'Release'
 
 steps:
 - task: replacetokens@5
@@ -23,24 +27,34 @@ steps:
     version: 5.0.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- script: dotnet build --configuration Release
-  displayName: Building .Net code
 - task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet Packages'
+  inputs:
+    command: 'restore'
+    projects: '$(solution)'
+    feedsToUse: 'select'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Ariza Bildiri App'
   inputs:
     command: 'build'
-    projects: '**/*.csproj'
+    projects: '$(solution)'
+    arguments: '-c $(configuration) -r $(runtime)'
 
-- script: dotnet publish WebApp --configuration Release --output publish/
-  displayName: Packing application WebApp
-
-- task: CopyFiles@2
-  displayName: Copy packed application WebApp to output
+- task: DotNetCoreCLI@2
+  displayName: 'Take release for Windows x64'
   inputs:
-    contents: |
-      WebApp/publish/**
-      !**/appsettings.Development.json
-    targetFolder: '$(Build.ArtifactStagingDirectory)/'
-    flattenFolders: true
+    command: 'publish'
+    publishWebProjects: false
+    projects: '$(solution)'
+    arguments: '-c $(configuration) -r $(runtime) -o $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: false
 
 - task: PublishBuildArtifacts@1
-  displayName: Publishing artifacts
+  displayName: 'Publish Build Artifact'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Ariza-Bildiri-App'
+    publishLocation: 'Container'
+
+

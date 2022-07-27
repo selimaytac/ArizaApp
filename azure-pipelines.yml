@@ -2,7 +2,7 @@ trigger:
  - master
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'WindowsPool'
 
 steps:
 - task: replacetokens@5
@@ -15,6 +15,13 @@ steps:
     tokenPrefix: '#{'
     tokenSuffix: '}#'
     actionOnNoFiles: 'fail'
+
+- task: UseDotNet@2
+  displayName: 'Use .Net Core SDK 5.0'
+  inputs:
+    packageType: sdk
+    version: 5.0.x
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - script: dotnet build --configuration Release
   displayName: Building .Net code

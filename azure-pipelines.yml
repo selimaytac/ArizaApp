@@ -1,0 +1,39 @@
+trigger:
+ - master
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+- task: replacetokens@5
+  inputs:
+    targetFiles: '**/appsettings.json'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    tokenPrefix: '#{'
+    tokenSuffix: '}#'
+    actionOnNoFiles: 'fail'
+
+- script: dotnet build --configuration Release
+  displayName: Building .Net code
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+
+- script: dotnet publish WebApp --configuration Release --output publish/
+  displayName: Packing application WebApp
+
+- task: CopyFiles@2
+  displayName: Copy packed application WebApp to output
+  inputs:
+    contents: |
+      WebApp/publish/**
+      !**/appsettings.Development.json
+    targetFolder: '$(Build.ArtifactStagingDirectory)/'
+    flattenFolders: true
+
+- task: PublishBuildArtifacts@1
+  displayName: Publishing artifacts

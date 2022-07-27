@@ -48,7 +48,6 @@ steps:
     publishWebProjects: false
     projects: '$(solution)'
     arguments: '-c $(configuration) -r $(runtime) -o $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: false
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Build Artifact'

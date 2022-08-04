@@ -16,9 +16,8 @@ namespace ArizaApp.Controllers
 {
     public class FirmController : BaseController
     {
-        public FirmController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
-            RoleManager<AppRole> roleManager, ArizaDbContext dbContext)
-            : base(userManager, null, roleManager, dbContext)
+        public FirmController(ArizaDbContext dbContext)
+            : base(null, null, null, dbContext)
         {
         }
 

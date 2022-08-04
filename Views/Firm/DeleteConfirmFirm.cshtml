@@ -14,10 +14,10 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-3 border">
-            @Html.DisplayNameFor(model => model.FirmName)
+            <label asp-for="FirmName" class="control-label"></label>  
         </dt>
         <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.FirmName)
+            @Model.FirmName
         </dd>
         <dt class="col-sm-3 border">
             Firmaya Bağlı Mail Adresleri

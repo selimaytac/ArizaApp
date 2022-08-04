@@ -13,9 +13,8 @@ namespace ArizaApp.Controllers
 {
     public class MailController : BaseController
     {
-        public MailController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
-            RoleManager<AppRole> roleManager, ArizaDbContext dbContext)
-            : base(userManager, null, roleManager, dbContext)
+        public MailController(ArizaDbContext dbContext)
+            : base(null, null, null, dbContext)
         {
         }
 
@@ -30,7 +29,7 @@ namespace ArizaApp.Controllers
 
         [HttpGet]
         [Authorize(Roles = RoleTypes.AdminEditor)]
-        public async Task<IActionResult> CreateEmail()
+        public IActionResult CreateEmail()
         {
             return View();
         }

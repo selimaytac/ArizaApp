@@ -10,22 +10,22 @@
 <h3 class="text-danger"><span class="font-weight-bold">@Model.EmailAddress</span> adresini silmek istediğinize emin misiniz?</h3>
 <h4 class="text-warning">Bu mail adresini silmek bağlı olduğu firmalardan da email adresini silecektir.</h4>
 <div>
-    <hr />
+    <hr/>
     <dl class="row">
-        <dt class = "col-sm-3 border">
-            @Html.DisplayNameFor(model => model.EmailAddress)
+        <dt class="col-sm-3 border">
+            <label asp-for="EmailAddress" class="control-label"></label>
         </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.EmailAddress)
+        <dd class="col-sm-9">
+            @Model.EmailAddress
         </dd>
-        <dt class = "col-sm-3 border">
-            @Html.DisplayNameFor(model => model.EmailDescription)
+        <dt class="col-sm-3 border">
+            <label asp-for="EmailDescription" class="control-label"></label>
         </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.EmailDescription)
+        <dd class="col-sm-9">
+            @Model.EmailDescription
         </dd>
     </dl>
-    
+
     <span class="text-sm-center text-danger">Bu işlem geri alınamaz!</span><br>
     <a asp-for="EmailDelete" asp-controller="Mail" asp-action="DeleteEmail" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Mail Adresini Sil</a>
 </div>

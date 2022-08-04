@@ -1,0 +1,48 @@
+@model ArizaApp.Models.Entities.Department
+
+@{
+    ViewData["Title"] = "Departman Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Departmanı Sil</h1>
+
+<h3 class="text-danger"><span class="font-weight-bold">@Model.DepartmentName</span> departmanını silmek istediğinize emin misiniz?</h3>
+<h4 class="text-warning">Bu departmanı silmek bağlı olduğu kullanıcılardan da departmanı silecektir. O yüzden departmanı silebilmek için lütfen bütün kullanıcıları başka departmana taşıyınız.</h4>
+<div>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-3 border">
+            <label asp-for="DepartmentName" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9">
+            @Model.DepartmentName
+        </dd>
+        <dt class="col-sm-3 border">
+            <label asp-for="Description" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Description
+        </dd>
+        <dt class="col-sm-3 border">
+            Bağlı Kullanıcılar
+        </dt>
+        <dd class="col-sm-12">
+            @if (Model.Users.Any())
+            {
+                @foreach (var user in Model.Users)
+                {
+                    <span class="badge bg-success">@user.UserName @user.Surname (@user.UserName)</span>
+                }
+            }
+            else
+            {
+                <span class="text-success mt-1">Departmana bağlı kullanıcı yok, departmanı <span class="text-danger text-bold">silebilirsiniz</span>.</span>
+            }
+        </dd>
+    </dl>
+
+    <span class="text-sm-center text-danger">Bu işlem geri alınamaz!</span><br>
+    <a asp-for="EmailDelete" asp-controller="Department" asp-action="DeleteDepartment" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Departman Sil</a>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</div>

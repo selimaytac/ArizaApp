@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-<a class="btn btn-primary font-weight-bold my-3" asp-action="CreateEmail" asp-controller="Data">Email Ekle</a>
+<a class="btn btn-primary font-weight-bold my-3" asp-action="CreateEmail" asp-controller="Mail">Email Ekle</a>
 
 <table id="getEmails" class="display table table-bordered" style="width:100%">
     <thead>
@@ -23,8 +23,8 @@
             <td>@email.EmailAddress</td>
             <td>@email.EmailDescription</td>
             <td>
-                <a asp-controller="Data" asp-action="UpdateEmail" asp-route-id="@email.Id" class="btn btn-warning btn-sm">Güncelle</a>
-                <a asp-controller="Data" asp-action="DeleteConfirmEmail" asp-route-id="@email.Id" class="btn btn-danger btn-sm">Sil</a>
+                <a asp-controller="Mail" asp-action="UpdateEmail" asp-route-id="@email.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                <a asp-controller="Mail" asp-action="DeleteConfirmEmail" asp-route-id="@email.Id" class="btn btn-danger btn-sm">Sil</a>
             </td>
         </tr>
     }

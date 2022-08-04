@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-<a class="btn btn-primary font-weight-bold my-3" asp-action="CreateFirm" asp-controller="Data">Yeni Firma</a>
+<a class="btn btn-primary font-weight-bold my-3" asp-action="CreateFirm" asp-controller="Firm">Yeni Firma</a>
 
 <table id="getFirms" class="display table table-bordered" style="width:100%">
     <thead>
@@ -28,8 +28,8 @@
                 @if(firm.Emails.Count() > 5) { <span class="badge bg-info">More...</span> }
             </td>
             <td>
-                <a asp-controller="Data" asp-action="UpdateFirm" asp-route-id="@firm.Id" class="btn btn-warning btn-sm">Güncelle</a>
-                <a asp-controller="Data" asp-action="DeleteConfirmFirm" asp-route-id="@firm.Id" class="btn btn-danger btn-sm">Sil</a>
+                <a asp-controller="Firm" asp-action="UpdateFirm" asp-route-id="@firm.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                <a asp-controller="Firm" asp-action="DeleteConfirmFirm" asp-route-id="@firm.Id" class="btn btn-danger btn-sm">Sil</a>
             </td>
         </tr>
     }

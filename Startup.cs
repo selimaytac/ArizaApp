@@ -97,6 +97,7 @@ namespace ArizaApp
             
             app.Use(async (context, next) =>
             {
+                // TODO: just for test, middleware is not a good choice for db seeding, move them.
                 var dbContext = context.RequestServices.GetService<ArizaDbContext>();
                 var seedObject = app.ApplicationServices.GetRequiredService<IOptions<SeedObject>>().Value;
                 await dbContext.Database.MigrateAsync();

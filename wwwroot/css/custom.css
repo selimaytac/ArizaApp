@@ -1,2 +1,5 @@
 .dataTables_filter > label > input{border: #4e555b 1px solid;}
 .dataTables_filter > .is-focused > input:focus{border: #4e555b 1px solid;}
+
+form .form-group .control-label{font-weight: 900;}
+form .form-group .form-control{border: #4e555b 1px solid; margin-bottom: 5px; padding: 8px;}

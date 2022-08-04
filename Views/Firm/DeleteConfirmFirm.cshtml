@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Email Adresini Sil</h1>
+<h1>Firmayı Sil</h1>
 
 <h3 class="text-danger"><span class="font-weight-bold">@Model.FirmName</span> firmasını silmek istediğinize emin misiniz?</h3>
 <h4 class="text-warning">Bu firmayi silmek firmaya bağlı olan  email adreslerini <span class="font-weight-bold">silmeyecektir</span>.</h4>
@@ -20,18 +20,18 @@
             @Html.DisplayFor(model => model.FirmName)
         </dd>
         <dt class="col-sm-3 border">
-            Firmaya Bağlı Email Adresleri
+            Firmaya Bağlı Mail Adresleri
         </dt>
-        <dd class = "col-sm-9">
+        <dd class = "col-sm-12">
             <td style="max-width: 200px;">
-                    @foreach (var email in (IEnumerable<EmailRecord>) @ViewBag.Emails)
+                @foreach (var emailAddress in (IEnumerable<string>) @ViewBag.Emails)
                 {
-                    <span class="badge badge-primary">@email.EmailAddress </span>
+                    <span class="badge bg-success">@emailAddress</span>
                 }
             </td>
         </dd>
     </dl>
     
     <span class="text-sm-center text-danger">Bu işlem geri alınamaz!</span><br>
-    <a asp-controller="Data" asp-action="DeleteFirm" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Firmayı Sil</a>
+    <a asp-controller="Firm" asp-action="DeleteFirm" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Firmayı Sil</a>
 </div>

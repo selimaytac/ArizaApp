@@ -21,10 +21,10 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Data" asp-action="GetEmails">Mail Adresleri</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Mail" asp-action="GetEmails">Mail Adresleri</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Data" asp-action="GetFirms">Firmalar</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Firm" asp-action="GetFirms">Firmalar</a>
                     </li>
                     @if (User.IsInRole(RoleTypes.Admin))
                     {

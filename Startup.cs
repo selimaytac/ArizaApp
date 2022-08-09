@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using ArizaApp.CustomValidations;
+using ArizaApp.Extensions;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Entities;
 using ArizaApp.Models.Seed;
@@ -32,13 +33,13 @@ namespace ArizaApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
             
             services.AddDbContext<ArizaDbContext>(opts =>
             {
                 opts.UseSqlServer(Configuration["ConnectionStrings:DefaultConnectionString"]);
             });
 
+            services.LoadCustomServices();
 
             services.AddIdentity<AppUser, AppRole>(options =>
                 {

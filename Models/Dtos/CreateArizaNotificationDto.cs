@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,26 +7,20 @@ namespace ArizaApp.Models.Dtos
 {
     public class CreateArizaNotificationDto
     {
-        [DisplayName("Bülten No")]
-        [Required]
-        public string FaultNo { get; set; }
+        [DisplayName("Bülten No")] [Required] public string FaultNo { get; set; }
 
         [DisplayName("Kesinti Bildirimi Yapan Kişi")]
         [Required]
         public string NotifiedBy { get; set; }
 
+        [DisplayName("Mail Konusu")] [Required] public string MailSubject { get; set; }
+
         [DisplayName("Bülten Tipi")] public string FaultType { get; set; }
-        [Required]
-        [DisplayName("Durum")]
-        public string State { get; set; }
-        
-        [Required] 
-        [DisplayName("Öncelik")]
-        public string Priority { get; set; }
-        
-        [Required]
-        [DisplayName("Açıklama")]
-        public string Description { get; set; }
+        [Required] [DisplayName("Durum")] public string State { get; set; }
+
+        [Required] [DisplayName("Öncelik")] public string Priority { get; set; }
+
+        [Required] [DisplayName("Açıklama")] public string Description { get; set; }
 
         [Required]
         [DisplayName("Başlangıç Zamanı")]
@@ -58,5 +53,7 @@ namespace ArizaApp.Models.Dtos
         [Required]
         [DisplayName("Kesintiyi Onaylayan Yönetici")]
         public string ApprovedBy { get; set; }
+        
+        public IEnumerable<int> FirmIdS { get; set; }
     }
 }

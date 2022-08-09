@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
+using ArizaApp.Models.Dtos;
 using ArizaApp.Models.Entities;
 using ArizaApp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -31,6 +32,13 @@ namespace ArizaApp.Controllers
         [HttpGet]
         [Authorize(Roles = RoleTypes.AdminEditor)]
         public IActionResult CreateArizaNotification()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleTypes.AdminEditor)]
+        public IActionResult CreateArizaNotification(CreateArizaNotificationDto createDto)
         {
             return View();
         }

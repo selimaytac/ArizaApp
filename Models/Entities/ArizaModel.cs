@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace ArizaApp.Models.Entities
@@ -27,5 +28,6 @@ namespace ArizaApp.Models.Entities
         public string ApprovedBy { get; set; }
         public string UserId { get; set; }
         public AppUser User { get; set; }
+        public IEnumerable<FirmRecord> Firms { get; set; }
     }
 }

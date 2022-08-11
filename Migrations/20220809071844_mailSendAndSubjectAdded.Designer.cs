@@ -4,14 +4,16 @@ using ArizaApp.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArizaApp.Migrations
 {
     [DbContext(typeof(ArizaDbContext))]
-    partial class ArizaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220809071844_mailSendAndSubjectAdded")]
+    partial class mailSendAndSubjectAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,7 +198,7 @@ namespace ArizaApp.Migrations
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 8, 11, 15, 20, 15, 622, DateTimeKind.Local).AddTicks(1427));
+                        .HasDefaultValue(new DateTime(2022, 8, 9, 10, 18, 44, 58, DateTimeKind.Local).AddTicks(1072));
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -271,21 +273,6 @@ namespace ArizaApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FirmRecords");
-                });
-
-            modelBuilder.Entity("ArizaModelFirmRecord", b =>
-                {
-                    b.Property<int>("ArizaModelsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FirmsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ArizaModelsId", "FirmsId");
-
-                    b.HasIndex("FirmsId");
-
-                    b.ToTable("ArizaModelFirmRecord");
                 });
 
             modelBuilder.Entity("EmailRecordFirmRecord", b =>
@@ -425,21 +412,6 @@ namespace ArizaApp.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ArizaModelFirmRecord", b =>
-                {
-                    b.HasOne("ArizaApp.Models.Entities.ArizaModel", null)
-                        .WithMany()
-                        .HasForeignKey("ArizaModelsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ArizaApp.Models.Entities.FirmRecord", null)
-                        .WithMany()
-                        .HasForeignKey("FirmsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmailRecordFirmRecord", b =>

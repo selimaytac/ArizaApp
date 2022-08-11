@@ -8,5 +8,6 @@ namespace ArizaApp.Models.Entities
         public int Id { get; set; }
         public string FirmName { get; set; }
         public IEnumerable<EmailRecord> Emails { get; set; } 
+        public IEnumerable<ArizaModel> ArizaModels { get; set; } 
     }
 }

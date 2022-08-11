@@ -1,0 +1,72 @@
+﻿@model IList<ArizaApp.Models.Entities.ArizaModel>
+
+@{
+    ViewBag.Title = "Bildiriler";
+    Layout = "_Layout";
+}
+
+<a class="btn btn-primary font-weight-bold my-3" asp-action="CreateArizaNotification" asp-controller="Notification">Yeni Bildiri</a>
+
+<table id="getNotifications" class="display table table-bordered" style="width:100%">
+    <thead>
+    <tr>
+        <th>Bülten No</th>
+        <th>Bildirmi Yapan</th>
+        <th>Mail Başlığı</th>
+        <th>Bülten Tipi</th>
+        <th>Durum</th>
+        <th>Öncelik</th>
+        <th>Başlangıç</th>
+        <th>Bitiş</th>
+        <th>Arıza Sebebi</th>
+        <th>Alarm</th>
+        <th>Etkilenen Servisler</th>
+        <th>Etkilenen Firmalar</th>
+        <th>Mail Gönderimi</th>
+        <th style="max-width: 300px">İşlemler</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var n in Model)
+    {
+        <tr class="text-center">
+            <td>@n.FaultNo</td>
+            <td>@n.NotifiedBy</td>
+            <td>@n.MailSubject</td>
+            <td>@n.FaultType</td>
+            <td>@n.State</td>
+            <td>@n.Priority</td>
+            <td>@n.StartDate.ToShortDateString()</td>
+            <td>@n.EndDate.ToShortDateString()</td>
+            <td>@n.FailureCause</td>
+            <td>@(n.AlarmStatus ? "Evet" : "Hayır")</td>
+            <td>@n.AffectedServices</td>
+            <td>@n.AffectedFirms</td>
+            <td>@(n.SendMail ? "Gönderildi" : "Gönderilmedi")</td>
+            <td>
+                <a asp-controller="Notification" asp-action="UpdateNotification" asp-route-id="@n.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                <a asp-controller="Notification" asp-action="DeleteConfirmNotification" asp-route-id="@n.Id" class="btn btn-danger btn-sm">Sil</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr class="text-center">
+        <th>Bülten No</th>
+        <th>Bildirmi Yapan</th>
+        <th>Mail Başlığı</th>
+        <th>Bülten Tipi</th>
+        <th>Durum</th>
+        <th>Öncelik</th>
+        <th>Başlangıç</th>
+        <th>Bitiş</th>
+        <th>Arıza Sebebi</th>
+        <th>Alarm</th>
+        <th>Etkilenen Servisler</th>
+        <th>Etkilenen Firmalar</th>
+        <th>Mail Gönderimi</th>
+        <th style="max-width: 300px">İşlemler</th>
+    </tr>
+    </tfoot>
+</table>

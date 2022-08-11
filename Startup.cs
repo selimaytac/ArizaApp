@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using ArizaApp.CustomValidations;
+using ArizaApp.Extensions;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Entities;
+using ArizaApp.Models.Options;
 using ArizaApp.Models.Seed;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,13 +34,13 @@ namespace ArizaApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
             
             services.AddDbContext<ArizaDbContext>(opts =>
             {
                 opts.UseSqlServer(Configuration["ConnectionStrings:DefaultConnectionString"]);
             });
 
+            services.LoadCustomServices();
 
             services.AddIdentity<AppUser, AppRole>(options =>
                 {
@@ -72,7 +74,7 @@ namespace ArizaApp
             });
 
             services.Configure<SeedObject>(Configuration.GetSection("DefaultAdminUser"));
-
+            services.Configure<MailOptions>(Configuration.GetSection("MailOptions"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

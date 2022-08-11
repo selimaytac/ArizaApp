@@ -1,0 +1,117 @@
+﻿@model ArizaApp.Models.Dtos.CreateArizaNotificationDto
+
+@{
+    ViewBag.Title = "Yeni Arıza Bildirimi";
+    Layout = "_Layout";
+}
+
+<h1 class="text-center">Yeni Arıza Bildirimi</h1>
+
+<hr/>
+<div class="row">
+    <div class="offset-md-4 col-md-4">
+        <form asp-action="CreateArizaNotification" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FaultNo" class="control-label"></label>
+                <input asp-for="FaultNo" class="form-control"/>
+                <span asp-validation-for="FaultNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NotifiedBy" class="control-label"></label>
+                <input asp-for="NotifiedBy" class="form-control"/>
+                <span asp-validation-for="NotifiedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MailSubject" class="control-label"></label>
+                <input asp-for="MailSubject" class="form-control"/>
+                <span asp-validation-for="MailSubject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaultType" class="control-label"></label>
+                <select class="form-control" asp-for="FaultType">
+                    <option value="Arıza">Arıza</option>
+                    <option value="Planlı Çalışma">Planlı Çalışma</option>
+                </select>
+                <span asp-validation-for="FaultType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <select class="form-control" asp-for="State">
+                    <option value="Başladı">Başladı</option>
+                    <option value="Yaşanmıştır">Yaşanmıştır</option>
+                    <option value="Bitti">Bitti</option>
+                </select>
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Priority" class="control-label"></label>
+                <input asp-for="Priority" class="form-control"/>
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control"/>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control"/>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FailureCause" class="control-label"></label>
+                <input asp-for="FailureCause" class="form-control"/>
+                <span asp-validation-for="FailureCause" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AffectedServices" class="control-label"></label>
+                <input asp-for="AffectedServices" class="form-control"/>
+                <span asp-validation-for="AffectedServices" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AffectedFirms" class="control-label"></label>
+                <input asp-for="AffectedFirms" class="form-control"/>
+                <span asp-validation-for="AffectedFirms" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ApprovedBy" class="control-label"></label>
+                <input asp-for="ApprovedBy" class="form-control"/>
+                <span asp-validation-for="ApprovedBy" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="AlarmStatus" class="control-label"></label>
+                <input type="checkbox" asp-for="AlarmStatus"/>
+                <span asp-validation-for="AlarmStatus" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SendMail" class="control-label"></label>
+                <input type="checkbox" asp-for="SendMail"/>
+                <span asp-validation-for="SendMail" class="text-danger"></span>
+            </div>
+
+            @if (ViewBag.Firms != null)
+            {
+                <div class="form-group">
+                    <label class="control-label">Mail Atılacak Firmaları Seçiniz.</label>
+                    @Html.DropDownList("FirmIdS", new MultiSelectList(ViewBag.Firms, "Id", "FirmName"), new { multiple = "multiple" })
+                    <span asp-validation-for="FirmIdS" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Yeni Arıza Kaydı Oluştur" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>

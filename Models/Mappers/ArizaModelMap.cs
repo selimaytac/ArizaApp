@@ -12,6 +12,7 @@ namespace ArizaApp.Models.Mappers
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).ValueGeneratedOnAdd();
             builder.Property(a => a.NotifiedBy).HasMaxLength(50).IsRequired();
+            builder.Property(a => a.MailSubject).HasMaxLength(100).IsRequired();
             builder.Property(a => a.FaultType).HasMaxLength(50).IsRequired();
             builder.Property(a => a.State).HasMaxLength(30).IsRequired();
             builder.Property(a => a.Description).HasMaxLength(500).IsRequired();
@@ -24,6 +25,7 @@ namespace ArizaApp.Models.Mappers
             builder.Property(a => a.ApprovedBy).HasMaxLength(50);
             builder.Property(a => a.SendMail).IsRequired();
             builder.HasOne<AppUser>(u => u.User).WithMany(r => r.Arizalar).HasForeignKey(u => u.UserId);
+            builder.HasMany<FirmRecord>(er => er.Firms).WithMany(fr => fr.ArizaModels);
         }
     }
 }

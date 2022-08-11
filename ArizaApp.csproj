@@ -20,6 +20,11 @@
       </PackageReference>
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+      <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="MailTemplate" />
     </ItemGroup>
 
 </Project>

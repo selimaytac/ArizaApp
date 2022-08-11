@@ -22,11 +22,9 @@ namespace ArizaApp.Models.Dtos
 
         [Required] [DisplayName("Açıklama")] public string Description { get; set; }
 
-        [Required]
         [DisplayName("Başlangıç Zamanı")]
         public DateTime StartDate { get; set; }
 
-        [Required]
         [DisplayName("Bitiş Zamanı")]
         public DateTime EndDate { get; set; }
 

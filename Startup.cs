@@ -7,6 +7,7 @@ using ArizaApp.CustomValidations;
 using ArizaApp.Extensions;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Entities;
+using ArizaApp.Models.Options;
 using ArizaApp.Models.Seed;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -73,7 +74,7 @@ namespace ArizaApp
             });
 
             services.Configure<SeedObject>(Configuration.GetSection("DefaultAdminUser"));
-
+            services.Configure<MailOptions>(Configuration.GetSection("MailOptions"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

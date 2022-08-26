@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=windows-1254"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.3.3.2 (Windows)"/>
+	<meta name="created" content="2015-06-05T18:19:34"/>
+	<meta name="changed" content="2022-08-18T05:54:47"/>
+	<meta name="AppVersion" content="16.0300"/>
+	
+	<style type="text/css">
+		body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Calibri"; font-size:x-small }
+		a.comment-indicator:hover + comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em;  } 
+		a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  } 
+		comment { display:none;  } 
+	</style>
+	
+</head>
+
+<body>
+<table cellspacing="0" border="0">
+	<colgroup width="146"></colgroup>
+	<colgroup width="520"></colgroup>
+	<tr>
+		<td style="border-bottom: 1px solid #ababab; border-left: 2px solid #8eaadb" colspan=2 height="22" align="center" valign=bottom bgcolor="#D5DCE4"><b><font face="İnherit" size=3 color="#203864">Arıza Bilgilendirme&nbsp;Formu</font></b></td>
+		</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">B&uuml;lten&nbsp;No&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{FaultNo}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">B&uuml;lten&nbsp;Tipi&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864"> #{FaultType}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">Durum&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{State}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&Ouml;ncelik&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864"> #{Priority}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">A&ccedil;ıklama&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{Description}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">Başlangı&ccedil;&nbsp;Zamanı&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF" sdnum="1055;0;DD.MM.YYYY HH:MM"><font color="#203864"> #{StartDate}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">Arıza&nbsp;Sebebi&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{FailureCause}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">Alarm&nbsp;Durumu&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864"> #{AlarmStatus}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&Ccedil;alışmayı Yapan Ekip</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{NotifiedBy}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">Etkilenen&nbsp;Servisler&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864"> #{AffectedServices}#</font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">Etkilenen&nbsp;Firmalar&nbsp;</font></b></td>
+		<td style="border-top: 1px solid #ababab; border-bottom: 1px solid #ababab; border-left: 1px solid #ababab; border-right: 1px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{AffectedFirms}#</font></td>
+	</tr>
+</table>
+<!-- ************************************************************************** -->
+</body>
+
+</html>

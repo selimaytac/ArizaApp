@@ -67,8 +67,8 @@ namespace ArizaApp.Controllers
                         .Select(x => x.EmailAddress)
                         .Distinct().ToList();
 
+                    await _mailSenderService.SendEmailAsync(emails, createDto.MailSubject, ariza);
                     CurrentUser.SendCount++;
-                    // bulk send mail method
                 }
 
                 await DbContext.AddAsync(ariza);
@@ -79,15 +79,6 @@ namespace ArizaApp.Controllers
 
             ViewBag.Firms = DbContext.FirmRecords.ToList();
             return View(createDto);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult SendMail()
-        {
-            var randomArizaModel = DbContext.ArizaModels.FirstOrDefault();
-            _mailSenderService.SendBulkArizaMail(new List<string>{"aytacselim37@gmail.com", "gselim2012@gmail.com"}, "test", randomArizaModel );
-            return RedirectToAction("CreateArizaNotification");
         }
     }
 }

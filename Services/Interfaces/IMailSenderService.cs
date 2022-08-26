@@ -8,6 +8,6 @@ namespace ArizaApp.Services.Interfaces
     public interface IMailSenderService
     {
         Task SendEmailAsync(List<string> mailAddresses, string subject, ArizaModel mailModel);
-        MimeEntity CreateHtmlEmailBody(ArizaModel mailModel);
+        MimeEntity CreateArizaHtmlEmailBody(ArizaModel mailModel);
     }
 }

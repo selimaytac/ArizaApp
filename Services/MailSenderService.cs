@@ -32,9 +32,9 @@ namespace ArizaApp.Services
             email.To.AddRange(mailAddresses.Select(MailboxAddress.Parse));
             email.Subject = subject;
             email.Body = CreateArizaHtmlEmailBody(mailModel);
-
+            
             using var smtp = new SmtpClient();
-            await smtp.ConnectAsync(_mailOptions.Host, _mailOptions.Port, SecureSocketOptions.StartTls);
+            await smtp.ConnectAsync(_mailOptions.Host, _mailOptions.Port, SecureSocketOptions.None);
             await smtp.SendAsync(email);
             await smtp.DisconnectAsync(true);
         }
@@ -44,8 +44,8 @@ namespace ArizaApp.Services
             var path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot\\mailTemplates\\");
             var templateName = mailModel.State == "Bitti" ? "ArizaBitis.txt" : "ArizaBaslangic.txt";
             var templatePath = System.IO.Path.Combine(path + templateName);
-
-            var str = new StreamReader(templatePath);
+            
+            var str = new StreamReader(templatePath, System.Text.Encoding.UTF8);
             var mailText = str.ReadToEnd();
 
             mailText =

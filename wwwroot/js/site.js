@@ -1,4 +1,24 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// For CreateNotification.cshtml
+$('#FaultType').change(function () {
+    if ($(this).val() == "Planlı Çalışma") {
+        $('#AlarmStatus').parent().hide();
+        $('#ApprovedBy').parent().hide();
+        $('#AffectedFirms').parent().hide();
+        $('#FailureCase').parent().hide();
+        $('#State').parent().hide();
+    } else {
+        $('#AlarmStatus').parent().show();
+        $('#ApprovedBy').parent().show();
+        $('#AffectedFirms').parent().show();
+        $('#FailureCase').parent().show();
+        $('#State').parent().show();
+    }
+});
 
-// Write your JavaScript code.
+$('#State').change(function () {
+    if ($(this).val() == "Başladı") {
+        $('#EndDate').parent().hide();
+    } else {
+        $('#EndDate').parent().show();
+    }
+});

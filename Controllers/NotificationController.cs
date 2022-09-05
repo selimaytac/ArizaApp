@@ -97,6 +97,17 @@ namespace ArizaApp.Controllers
             {
                 var arizaModel = await DbContext.ArizaModels.FindAsync(updateDto.Id);
                 arizaModel = updateDto.Adapt(arizaModel);
+
+                if (updateDto.SendMailAgain)
+                {
+                    var emails = arizaModel.Firms
+                        .SelectMany(x => x.Emails)
+                        .Select(x => x.EmailAddress)
+                        .Distinct().ToList();
+
+                    await _mailSenderService.SendEmailAsync(emails, arizaModel.MailSubject, arizaModel);
+                }
+                
                 DbContext.ArizaModels.Update(arizaModel);
                 await DbContext.SaveChangesAsync();
                 return RedirectToAction("GetNotifications");

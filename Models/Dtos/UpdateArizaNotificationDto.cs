@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ArizaApp.Models.Dtos
 {
-    public class CreateArizaNotificationDto
+    public class UpdateArizaNotificationDto
     {
+        public int Id { get; set; }
+
         [DisplayName("Bülten No")] [Required] public string FaultNo { get; set; }
 
         [DisplayName("Kesinti Bildirimi Yapan Kişi")]
         [Required]
         public string NotifiedBy { get; set; }
 
-        [DisplayName("Mail Konusu")] [Required] public string MailSubject { get; set; }
+        [DisplayName("Mail Konusu")]
+        [Required]
+        public string MailSubject { get; set; }
 
         [DisplayName("Bülten Tipi")] public string FaultType { get; set; }
         [Required] [DisplayName("Durum")] public string State { get; set; }
@@ -22,11 +25,9 @@ namespace ArizaApp.Models.Dtos
 
         [Required] [DisplayName("Açıklama")] public string Description { get; set; }
 
-        [DisplayName("Başlangıç Zamanı")]
-        public string StartDate { get; set; }
+        [DisplayName("Başlangıç Zamanı")] public string StartDate { get; set; }
 
-        [DisplayName("Bitiş Zamanı")]
-        public string EndDate { get; set; }
+        [DisplayName("Bitiş Zamanı")] public string EndDate { get; set; }
 
         [Required]
         [DisplayName("Arıza Sebebi")]
@@ -45,13 +46,11 @@ namespace ArizaApp.Models.Dtos
         public string AffectedFirms { get; set; }
 
         [Required]
-        [DisplayName("Mail Gönderimi")]
-        public bool SendMail { get; set; }
-
-        [Required]
         [DisplayName("Kesintiyi Onaylayan Yönetici")]
         public string ApprovedBy { get; set; }
-        
-        public IEnumerable<int> FirmIdS { get; set; }
+
+        [Required]
+        [DisplayName("Tekrar Mail Gönderimi")]
+        public bool SendMailAgain { get; set; } = false;
     }
 }

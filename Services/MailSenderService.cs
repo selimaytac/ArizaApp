@@ -72,8 +72,8 @@ namespace ArizaApp.Services
                 .Replace("#{FaultType}#", mailModel.FaultType)
                 .Replace("#{Priority}#", mailModel.Priority)
                 .Replace("#{Description}#", mailModel.Description)
-                .Replace("#{StartDate}#", mailModel.StartDate.ToShortDateString())
-                .Replace("#{EndDate}#", mailModel.EndDate.ToShortDateString())
+                .Replace("#{StartDate}#", mailModel.StartDate)
+                .Replace("#{EndDate}#", mailModel.EndDate)
                 .Replace("#{NotifiedBy}#", mailModel.NotifiedBy)
                 .Replace("#{AffectedServices}#", mailModel.AffectedServices);
         }
@@ -85,7 +85,7 @@ namespace ArizaApp.Services
                 .Replace("#{State}#", mailModel.State)
                 .Replace("#{Priority}#", mailModel.Priority)
                 .Replace("#{Description}#", mailModel.Description)
-                .Replace("#{StartDate}#", mailModel.StartDate.ToShortDateString())
+                .Replace("#{StartDate}#", mailModel.StartDate)
                 .Replace("#{FailureCause}#", mailModel.FailureCause)
                 .Replace("#{AlarmStatus}#", mailModel.AlarmStatus ? "Evet" : "Hayır")
                 .Replace("#{NotifiedBy}#", mailModel.NotifiedBy)
@@ -93,7 +93,7 @@ namespace ArizaApp.Services
                 .Replace("#{AffectedFirms}#", mailModel.AffectedFirms);
 
             if (mailModel.State == "Bitti")
-                mailText = mailText.Replace("#{EndDate}#", mailModel.EndDate.ToShortDateString());
+                mailText = mailText.Replace("#{EndDate}#", mailModel.EndDate);
 
             return mailText;
         }

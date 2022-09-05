@@ -17,8 +17,8 @@ namespace ArizaApp.Models.Entities
         [DisplayName("Durum")] public string State { get; set; }
         [DisplayName("Öncelik")] public string Priority { get; set; }
         [DisplayName("Açıklama")] public string Description { get; set; }
-        [DisplayName("Başlangıç Zamanı")] public DateTime StartDate { get; set; }
-        [DisplayName("Bitiş Zamanı")] public DateTime EndDate { get; set; }
+        [DisplayName("Başlangıç Zamanı")] public string StartDate { get; set; }
+        [DisplayName("Bitiş Zamanı")] public string EndDate { get; set; }
         [DisplayName("Arıza Sebebi")] public string FailureCause { get; set; }
         [DisplayName("Alarm Durumu")] public bool AlarmStatus { get; set; }
         [DisplayName("Etiklenen Servisler")] public string AffectedServices { get; set; }

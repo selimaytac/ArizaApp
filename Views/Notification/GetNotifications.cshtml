@@ -37,16 +37,16 @@
             <td>@n.FaultType</td>
             <td>@n.State</td>
             <td>@n.Priority</td>
-            <td>@n.StartDate.ToShortDateString()</td>
-            <td>@n.EndDate.ToShortDateString()</td>
+            <td>@n.StartDate</td>
+            <td>@n.EndDate</td>
             <td>@n.FailureCause</td>
             <td>@(n.AlarmStatus ? "Evet" : "Hayır")</td>
             <td>@n.AffectedServices</td>
             <td>@n.AffectedFirms</td>
             <td>@(n.SendMail ? "Gönderildi" : "Gönderilmedi")</td>
             <td>
-                <a asp-controller="Notification" asp-action="UpdateNotification" asp-route-id="@n.Id" class="btn btn-warning btn-sm">Güncelle</a>
-                <a asp-controller="Notification" asp-action="DeleteConfirmNotification" asp-route-id="@n.Id" class="btn btn-danger btn-sm">Sil</a>
+                <a asp-controller="Notification" asp-action="UpdateArizaNotification" asp-route-id="@n.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                <a asp-controller="Notification" asp-action="DeleteConfirmArizaNotification" asp-route-id="@n.Id" class="btn btn-danger btn-sm">Sil</a>
             </td>
         </tr>
     }

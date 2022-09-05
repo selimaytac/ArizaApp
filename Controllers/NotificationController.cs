@@ -80,5 +80,54 @@ namespace ArizaApp.Controllers
             ViewBag.Firms = DbContext.FirmRecords.ToList();
             return View(createDto);
         }
+        
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.AdminEditor)]
+        public async Task<IActionResult> UpdateArizaNotification(int id)
+        {
+            var arizaModel = await DbContext.ArizaModels.FindAsync(id);
+            return View(arizaModel.Adapt<UpdateArizaNotificationDto>());
+        }
+        
+        [HttpPost]
+        [Authorize(Roles = RoleTypes.AdminEditor)]
+        public async Task<IActionResult> UpdateArizaNotification(UpdateArizaNotificationDto updateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var arizaModel = await DbContext.ArizaModels.FindAsync(updateDto.Id);
+                arizaModel = updateDto.Adapt(arizaModel);
+                DbContext.ArizaModels.Update(arizaModel);
+                await DbContext.SaveChangesAsync();
+                return RedirectToAction("GetNotifications");
+            }
+
+            return View(updateDto);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.AdminEditor)]
+        public async Task<IActionResult> DeleteConfirmArizaNotification(int id)
+        {
+            var arizaModel = await DbContext.ArizaModels.FindAsync(id);
+            
+            if(arizaModel == null) return RedirectToAction("GetNotifications");
+
+            return View(arizaModel.Adapt<UpdateArizaNotificationDto>());
+        }
+        
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.AdminEditor)]
+        public async Task<IActionResult> DeleteArizaNotification(int id)
+        {
+            var arizaModel = await DbContext.ArizaModels.FindAsync(id);
+
+            if (arizaModel == null)
+                return RedirectToAction("GetNotifications");
+            
+            DbContext.ArizaModels.Remove(arizaModel);
+            await DbContext.SaveChangesAsync();
+            return RedirectToAction("GetNotifications");
+        }
     }
 }

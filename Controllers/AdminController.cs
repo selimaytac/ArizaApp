@@ -17,16 +17,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArizaApp.Controllers
 {
-    [Authorize(Roles = RoleTypes.Admin)]
     public class AdminController : BaseController
     {
         public AdminController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
             RoleManager<AppRole> roleManager, ArizaDbContext dbContext)
-            : base(userManager, null, roleManager, dbContext)
+            : base(userManager, signInManager, roleManager, dbContext)
         {
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleTypes.Admin)]
         public IActionResult Index()
         {
             return View();
@@ -34,6 +34,7 @@ namespace ArizaApp.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = RoleTypes.Admin)]
         public IActionResult CreateUser()
         {
             ViewBag.DepartmentList = ViewListHelper.GetDepartments(DbContext);
@@ -43,6 +44,7 @@ namespace ArizaApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleTypes.Admin)]
         public IActionResult GetUsers()
         {
             var users = UserManager.Users.Include(r => r.Department).ToList();
@@ -55,15 +57,17 @@ namespace ArizaApp.Controllers
                     Name = user.Name,
                     Surname = user.Surname,
                     DepartmentName = user.Department.DepartmentName,
-                    RoleName = (from role in UserManager.GetRolesAsync(user).Result select role).FirstOrDefault() ?? "Rol Yok",
+                    RoleName = (from role in UserManager.GetRolesAsync(user).Result select role).FirstOrDefault() ??
+                               "Rol Yok",
                     Note = user.Note,
                     SendCount = user.SendCount
                 }).ToList();
-            
+
             return View(userDtos);
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleTypes.Admin)]
         public async Task<IActionResult> CreateUser(CreateUserDto createUserDto)
         {
             if (ModelState.IsValid)
@@ -111,6 +115,69 @@ namespace ArizaApp.Controllers
             ViewBag.RoleList = ViewListHelper.GetRoles(DbContext);
 
             return View(createUserDto);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.AllRoles)]
+        public IActionResult ProfileSettings()
+        {
+            return View(CurrentUser);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.AllRoles)]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleTypes.AllRoles)]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = CurrentUser;
+
+                if (user != null)
+                {
+                    var isOldPasswordTrue = UserManager.CheckPasswordAsync(user, changePasswordDto.PasswordOld)
+                        .Result;
+
+                    if (isOldPasswordTrue)
+                    {
+                        var result = UserManager.ChangePasswordAsync(
+                            user, changePasswordDto.PasswordOld,
+                            changePasswordDto.PasswordNew).Result;
+
+                        if (result.Succeeded)
+                        {
+                            // Security stamp her 30 dakikada bir kontrol ediliyor.
+                            // O yüzden biz veritabanındaki stampi güncellemezek
+                            // kullanıcı eski stampi ile sitede gezmeye devam edebilir.
+                            await UserManager.UpdateSecurityStampAsync(user);
+
+                            // Stamp güncellendiği için 30 dakika sonra sistemden kontrol edip atacaktır.
+                            // Burada kullanıcıya sistemden arka planda çıkış yaptırıp, tekrar giriş yaptırıyoruz.
+                            // Böylece cookie verileri güncelleniyor ve 30 dakika sonra sistemden atılması engelleniyor.
+                            await SignInManager.SignOutAsync();
+                            await SignInManager.PasswordSignInAsync(user, changePasswordDto.PasswordNew, true, false);
+
+                            ViewBag.success = "True";
+                        }
+                        else
+                        {
+                            AddModelError(result);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Eski şifrenizi yanlış girdiniz.");
+                    }
+                }
+            }
+
+            return View(changePasswordDto);
         }
     }
 }

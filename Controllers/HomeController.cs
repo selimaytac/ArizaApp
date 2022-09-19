@@ -107,9 +107,10 @@ namespace ArizaApp.Controllers
             return View(userLogin);
         }
 
-        public void LogOut()
+        public IActionResult LogOut()
         {
             SignInManager.SignOutAsync();
+            return RedirectToAction("LogIn");
         }
 
         public IActionResult AccessDenied()

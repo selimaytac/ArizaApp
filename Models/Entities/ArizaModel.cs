@@ -21,8 +21,8 @@ namespace ArizaApp.Models.Entities
         [DisplayName("Bitiş Zamanı")] public string EndDate { get; set; }
         [DisplayName("Arıza Sebebi")] public string FailureCause { get; set; }
         [DisplayName("Alarm Durumu")] public bool AlarmStatus { get; set; }
-        [DisplayName("Etiklenen Servisler")] public string AffectedServices { get; set; }
-        [DisplayName("Etiklenen Firmalar")] public string AffectedFirms { get; set; }
+        [DisplayName("Etkilenen Servisler")] public string AffectedServices { get; set; }
+        [DisplayName("Etkilenen Firmalar")] public string AffectedFirms { get; set; }
         [DisplayName("Mail Gönderimi")] public bool SendMail { get; set; }
         [DisplayName("Kesintiyi Onaylayan Yönetici")]
         public string ApprovedBy { get; set; }

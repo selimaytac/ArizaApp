@@ -37,11 +37,11 @@ namespace ArizaApp.Models.Dtos
         public bool AlarmStatus { get; set; }
 
         [Required]
-        [DisplayName("Etiklenen Servisler")]
+        [DisplayName("Etkilenen Servisler")]
         public string AffectedServices { get; set; }
 
         [Required]
-        [DisplayName("Etiklenen Firmalar")]
+        [DisplayName("Etkilenen Firmalar")]
         public string AffectedFirms { get; set; }
 
         [Required]

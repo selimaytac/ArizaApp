@@ -38,6 +38,10 @@ $(document).ready(function () {
                 "next": ">"
             }
         },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         columnDefs: [{
             target: '_all', className: 'text-center'
         }],
@@ -50,8 +54,12 @@ $(document).ready(function () {
             "paginate": {
                 "previous": "<",
                 "next": ">"
-            }
+            },
         },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         columnDefs: [{
             target: '_all', className: 'text-center'
         }],

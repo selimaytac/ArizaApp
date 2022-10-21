@@ -34,7 +34,7 @@ namespace ArizaApp.Controllers
         [Authorize(Roles = RoleTypes.AdminEditor)]
         public async Task<IActionResult> CreateFirm()
         {
-            var emails = await DbContext.EmailRecords.AsNoTracking().ToListAsync();
+            var emails = await DbContext.EmailRecords.AsNoTracking().OrderBy(e => e.EmailAddress).ToListAsync();
 
             if (emails.Count != 0) ViewBag.Emails = emails;
 
@@ -70,7 +70,7 @@ namespace ArizaApp.Controllers
                 return RedirectToAction("GetFirms");
             }
 
-            ViewBag.Emails = await DbContext.EmailRecords.AsNoTracking().ToListAsync();
+            ViewBag.Emails = await DbContext.EmailRecords.AsNoTracking().OrderBy(e => e.EmailAddress).ToListAsync();
             ModelState.AddModelError("", "Bir problem oluştu, lütfen daha sonra tekrar deneyiniz.");
             return View(createFirmDto);
         }
@@ -88,11 +88,11 @@ namespace ArizaApp.Controllers
             var emails = await DbContext.EmailRecords.AsNoTracking()
                 .ToListAsync();
 
-            var canAddToFirm = emails.Where(e => !firm.Emails.Select(x => x.Id).Contains(e.Id)).ToList();
+            var canAddToFirm = emails.Where(e => !firm.Emails.Select(x => x.Id).Contains(e.Id)).OrderBy(e => e.EmailAddress).ToList();
             if (canAddToFirm.Count != 0)
                 ViewBag.NotIncludedEmailsMultiSelectList = new MultiSelectList(canAddToFirm, "Id", "EmailAddress");
 
-            var canDeleteFromFirm = firm.Emails.ToList();
+            var canDeleteFromFirm = firm.Emails.OrderBy(e => e.EmailAddress).ToList();
             if (canDeleteFromFirm.Count != 0)
                 ViewBag.CurrentEmailsMultiSelectList = new MultiSelectList(canDeleteFromFirm, "Id", "EmailAddress");
 

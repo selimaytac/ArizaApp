@@ -38,7 +38,7 @@ namespace ArizaApp.Controllers
         [Authorize(Roles = RoleTypes.AdminEditor)]
         public async Task<IActionResult> CreateArizaNotification()
         {
-            ViewBag.Firms = await DbContext.FirmRecords.ToListAsync();
+            ViewBag.Firms = await DbContext.FirmRecords.OrderBy(f => f.FirmName).ToListAsync();
 
             return View();
         }

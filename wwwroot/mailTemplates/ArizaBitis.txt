@@ -1,4 +1,4 @@
- min-width:300px ;<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>

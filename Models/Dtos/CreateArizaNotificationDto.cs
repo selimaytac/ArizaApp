@@ -9,7 +9,7 @@ namespace ArizaApp.Models.Dtos
     {
         [DisplayName("Bülten No")] [Required] public string FaultNo { get; set; }
 
-        [DisplayName("Kesinti Bildirimi Yapan Kişi")]
+        [DisplayName("Problem ile İlgilenen Ekip")]
         [Required]
         public string NotifiedBy { get; set; }
 
@@ -33,7 +33,7 @@ namespace ArizaApp.Models.Dtos
         public string FailureCause { get; set; }
 
         [Required]
-        [DisplayName("Alarm Durumu")]
+        [DisplayName("Alarm Var mı?")]
         public bool AlarmStatus { get; set; }
 
         [Required]
@@ -47,8 +47,7 @@ namespace ArizaApp.Models.Dtos
         [Required]
         [DisplayName("Mail Gönderimi")]
         public bool SendMail { get; set; }
-
-        [Required]
+            
         [DisplayName("Kesintiyi Onaylayan Yönetici")]
         public string ApprovedBy { get; set; }
         

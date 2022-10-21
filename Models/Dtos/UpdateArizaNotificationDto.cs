@@ -34,7 +34,7 @@ namespace ArizaApp.Models.Dtos
         public string FailureCause { get; set; }
 
         [Required]
-        [DisplayName("Alarm Durumu")]
+        [DisplayName("Alarm Var mı?")]
         public bool AlarmStatus { get; set; }
 
         [Required]
@@ -44,8 +44,7 @@ namespace ArizaApp.Models.Dtos
         [Required]
         [DisplayName("Etkilenen Firmalar")]
         public string AffectedFirms { get; set; }
-
-        [Required]
+        
         [DisplayName("Kesintiyi Onaylayan Yönetici")]
         public string ApprovedBy { get; set; }
 

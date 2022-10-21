@@ -5,3 +5,7 @@ form .form-group .control-label{font-weight: 900;}
 form .form-group .form-control{border: #4e555b 1px solid; margin-bottom: 5px; padding: 8px;}
 
 form .form-group select{min-width: 300px;}
+
+.table tbody tr:last-child td {
+    border-width: 1px;
+}

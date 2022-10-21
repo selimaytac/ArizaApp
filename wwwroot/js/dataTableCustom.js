@@ -40,7 +40,7 @@ $(document).ready(function () {
         },
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'excel', 'pdf', 'print'
         ],
         columnDefs: [{
             target: '_all', className: 'text-center'
@@ -58,7 +58,7 @@ $(document).ready(function () {
         },
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'excel', 'pdf', 'print'
         ],
         columnDefs: [{
             target: '_all', className: 'text-center'

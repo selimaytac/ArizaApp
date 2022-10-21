@@ -1,11 +1,11 @@
 ﻿@model ArizaApp.Models.Dtos.CreateArizaNotificationDto
 
 @{
-    ViewBag.Title = "Yeni Arıza Bildirimi";
+    ViewBag.Title = "Yeni Bildiri";
     Layout = "_Layout";
 }
 
-<h1 class="text-center">Yeni Arıza Bildirimi</h1>
+<h1 class="text-center">Yeni Arıza/Planlı Çalışma Bildirimi</h1>
 
 <hr/>
 <div class="row">
@@ -13,19 +13,14 @@
         <form asp-action="CreateArizaNotification" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FaultNo" class="control-label"></label>
-                <input asp-for="FaultNo" class="form-control"/>
-                <span asp-validation-for="FaultNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NotifiedBy" class="control-label"></label>
-                <input asp-for="NotifiedBy" class="form-control"/>
-                <span asp-validation-for="NotifiedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="MailSubject" class="control-label"></label>
                 <input asp-for="MailSubject" class="form-control"/>
                 <span asp-validation-for="MailSubject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaultNo" class="control-label"></label>
+                <input asp-for="FaultNo" class="form-control"/>
+                <span asp-validation-for="FaultNo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FaultType" class="control-label"></label>
@@ -46,9 +41,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Priority" class="control-label"></label>
-                <input asp-for="Priority" class="form-control"/>
+                <select class="form-control" asp-for="Priority">
+                    <option value="Orta">Orta</option>
+                    <option value="Yüksek">Yüksek</option>
+                    <option value="Kritik">Kritik</option>
+                </select>
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
@@ -70,7 +70,11 @@
                 <input asp-for="FailureCause" class="form-control"/>
                 <span asp-validation-for="FailureCause" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="NotifiedBy" class="control-label"></label>
+                <input asp-for="NotifiedBy" class="form-control"/>
+                <span asp-validation-for="NotifiedBy" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="AffectedServices" class="control-label"></label>
                 <input asp-for="AffectedServices" class="form-control"/>
@@ -87,7 +91,6 @@
                 <input asp-for="ApprovedBy" class="form-control"/>
                 <span asp-validation-for="ApprovedBy" class="text-danger"></span>
             </div>
-
 
             <div class="form-group">
                 <label asp-for="AlarmStatus" class="control-label"></label>
@@ -110,7 +113,7 @@
                 </div>
             }
             <div class="form-group">
-                <input type="submit" value="Yeni Arıza Kaydı Oluştur" class="btn btn-primary"/>
+                <input type="submit" value="Kayıt Oluştur" class="btn btn-primary"/>
             </div>
         </form>
     </div>

@@ -27,36 +27,36 @@
 		<td style="border-bottom: 0.5px solid #ababab; border-left: 1px solid #8eaadb" colspan=2 height="22" align="center" valign=bottom bgcolor="#D5DCE4"><b><font face="İnherit" size=3 color="#203864">Planlı &Ccedil;alışma Bilgilendirme&nbsp;Formu</font></b></td>
 		</tr>
 	<tr>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">B&uuml;lten&nbsp;No&nbsp;</font></b></td>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{FaultNo}#</font></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;B&uuml;lten&nbsp;No&nbsp;</font></b></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864">&nbsp; #{FaultNo}#</font></td>
 	</tr>
 	<tr>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">B&uuml;lten&nbsp;Tipi&nbsp;</font></b></td>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864"> #{FaultType}#</font></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;B&uuml;lten&nbsp;Tipi&nbsp;</font></b></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864">&nbsp; #{FaultType}#</font></td>
 	</tr>
 	<tr>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&Ouml;ncelik&nbsp;</font></b></td>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{Priority}#</font></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;&Ouml;ncelik&nbsp;</font></b></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864">&nbsp; #{Priority}#</font></td>
 	</tr>
 	<tr>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">A&ccedil;ıklama</font></b></td>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864"> #{Description}#</font></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;A&ccedil;ıklama</font></b></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864">&nbsp; #{Description}#</font></td>
 	</tr>
 	<tr>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">Başlangı&ccedil;&nbsp;Zamanı&nbsp;</font></b></td>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{StartDate}#</font></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;Başlangı&ccedil;&nbsp;Zamanı&nbsp;</font></b></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864">&nbsp; #{StartDate}#</font></td>
 	</tr>
 	<tr>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">Bitiş Zamanı</font></b></td>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF" sdnum="1055;0;DD.MM.YYYY HH:MM"><font color="#203864"> #{EndDate}#</font></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;Bitiş Zamanı</font></b></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF" sdnum="1055;0;DD.MM.YYYY HH:MM"><font color="#203864">&nbsp; #{EndDate}#</font></td>
 	</tr>
 	<tr>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&Ccedil;alışmayı Yapacak Ekip</font></b></td>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864"> #{NotifiedBy}#</font></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;&Ccedil;alışmayı Yapacak Ekip</font></b></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864">&nbsp; #{NotifiedBy}#</font></td>
 	</tr>
 	<tr>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&Ccedil;alışma Yapılan Sunucular</font></b></td>
-		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864"> #{AffectedServices}#</font></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;&Ccedil;alışma Yapılan Sunucular</font></b></td>
+		<td style="font-size:12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864">&nbsp; #{AffectedServices}#</font></td>
 	</tr>
 </table>
 <!-- ************************************************************************** -->

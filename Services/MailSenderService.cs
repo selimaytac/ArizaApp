@@ -29,7 +29,7 @@ namespace ArizaApp.Services
         {
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailOptions.Sender);
-            email.To.AddRange(mailAddresses.Select(MailboxAddress.Parse));
+            email.Bcc.AddRange(mailAddresses.Select(MailboxAddress.Parse));
             email.Subject = subject;
             email.Body = CreateArizaHtmlEmailBody(mailModel);
 

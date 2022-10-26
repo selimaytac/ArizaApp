@@ -95,7 +95,7 @@ namespace ArizaApp.Controllers
 
                             // add user to role || if role not exist, add Viewer role to the new user
                             await UserManager.AddToRoleAsync(user, role!.Name ?? "Viewer");
-                            return RedirectToAction("Index");
+                            return RedirectToAction("GetUsers");
                         }
 
                         foreach (var error in result.Errors) ModelState.AddModelError("", error.Description);

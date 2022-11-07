@@ -63,7 +63,7 @@
 		<td style="font-size: 12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#F2F2F2"><font color="#203864">&nbsp; #{AlarmStatus}#</font></td>
 	</tr>
 	<tr>
-		<td style="font-size: 12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;&Ccedil;alışmayı Yapan Ekip</font></b></td>
+		<td style="font-size: 12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" height="47" align="left" valign=middle bgcolor="#FED6D2"><b><font color="#203864">&nbsp;Problem ile İlgilenen Ekip</font></b></td>
 		<td style="font-size: 12px; border-top: 0.5px solid #ababab; border-bottom: 0.5px solid #ababab; min-width: 300px; border-left: 0.5px solid #ababab; border-right: 0.5px solid #ababab" align="left" valign=middle bgcolor="#FFFFFF"><font color="#203864">&nbsp; #{NotifiedBy}#</font></td>
 	</tr>
 	<tr>

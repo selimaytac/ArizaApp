@@ -17,7 +17,7 @@ namespace ArizaApp.Models.Mappers
             builder.Property(a => a.State).HasMaxLength(30).IsRequired();
             builder.Property(a => a.Description).HasMaxLength(500).IsRequired();
             builder.Property(a => a.StartDate).HasMaxLength(60).IsRequired();
-            builder.Property(a => a.EndDate).HasMaxLength(60).IsRequired();
+            builder.Property(a => a.EndDate).HasMaxLength(60);
             builder.Property(a => a.Priority).HasMaxLength(30).IsRequired();
             builder.Property(a => a.FailureCause).HasMaxLength(30).IsRequired();
             builder.Property(a => a.AlarmStatus).IsRequired();

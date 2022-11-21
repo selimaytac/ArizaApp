@@ -45,7 +45,7 @@ namespace ArizaApp.Services
             var templateName = string.Empty;
 
             if (mailModel.FaultType == "Arıza")
-                templateName = mailModel.State == "Bitti" ? "ArizaBitis.txt" : "ArizaBaslangic.txt";
+                templateName = mailModel.State is "Bitti" or "Yaşanmıştır" ? "ArizaBitis.txt" : "ArizaBaslangic.txt";
             else
                 templateName = "PlanliCalisma.txt";
 
@@ -92,7 +92,7 @@ namespace ArizaApp.Services
                 .Replace("#{AffectedServices}#", mailModel.AffectedServices)
                 .Replace("#{AffectedFirms}#", mailModel.AffectedFirms);
 
-            if (mailModel.State == "Bitti")
+            if (mailModel.State is "Bitti" or "Yaşanmıştır")
                 mailText = mailText.Replace("#{EndDate}#", mailModel.EndDate);
 
             return mailText;

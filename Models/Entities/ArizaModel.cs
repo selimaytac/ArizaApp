@@ -10,7 +10,7 @@ namespace ArizaApp.Models.Entities
 
         [DisplayName("Bülten No")] public string FaultNo { get; set; }
 
-        [DisplayName("Kesinti Bildirimi Yapan Kişi")]
+        [DisplayName("Problem İle İlgilenen Ekip")]
         public string NotifiedBy { get; set; }
         [DisplayName("Mail Konusu")] public string MailSubject {get; set;}
         [DisplayName("Bülten Tipi")] public string FaultType { get; set; }

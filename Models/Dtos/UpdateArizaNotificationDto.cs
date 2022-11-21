@@ -10,7 +10,7 @@ namespace ArizaApp.Models.Dtos
 
         [DisplayName("Bülten No")] [Required] public string FaultNo { get; set; }
 
-        [DisplayName("Kesinti Bildirimi Yapan Kişi")]
+        [DisplayName("Problem İle İlgilenen Ekip")]
         [Required]
         public string NotifiedBy { get; set; }
 

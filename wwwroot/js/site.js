@@ -28,7 +28,7 @@ function changeAriza() {
     $('#AffectedFirms').parent().show();
     $('#FailureCause').parent().show();
     $('#State').parent().show();
-    $('#NotifiedBy').parent().find('label').html("Kesinti Bildirimi Yapan Kişi");
+    $('#NotifiedBy').parent().find('label').html("Problem İle İlgilenen Ekip");
     $('#AffectedServices').parent().find('label').html("Etkilenen Servisler");
 }
 

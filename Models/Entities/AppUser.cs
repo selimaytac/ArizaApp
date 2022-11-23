@@ -15,6 +15,7 @@ namespace ArizaApp.Models.Entities
         [Required] public int DepartmentId { get; set; }
         public Department Department { get; set; }
         public IEnumerable<ArizaModel> Arizalar { get; set; }
+        public IEnumerable<UploadedFileRecords> UploadedFileRecords { get; set; }
         public int SendCount { get; set; } = 0;
         public string? Note { get; set; }
     }

@@ -29,5 +29,6 @@ namespace ArizaApp.Models.Entities
         public string UserId { get; set; }
         public AppUser User { get; set; }
         public IEnumerable<FirmRecord> Firms { get; set; }
+        public IEnumerable<UploadedFileRecords> UploadedFileRecords { get; set; }
     }
 }

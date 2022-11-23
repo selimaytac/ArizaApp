@@ -75,6 +75,7 @@ namespace ArizaApp
 
             services.Configure<SeedObject>(Configuration.GetSection("DefaultAdminUser"));
             services.Configure<MailOptions>(Configuration.GetSection("MailOptions"));
+            services.Configure<ServerOptions>(Configuration.GetSection("ServerOptions"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

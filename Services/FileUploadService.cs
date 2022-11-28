@@ -27,8 +27,10 @@ namespace ArizaApp.Services
             _serverOptions = serverOptions.Value;
         }
 
-        public async Task<bool> UploadFileAsync(IList<IFormFile> files, int notificationId, AppUser user)
+        public async Task<List<UploadedFileRecords>> UploadFileAsync(IList<FormFile> files, int notificationId, AppUser user)
         {
+            var uploadedFileList = new List<UploadedFileRecords>();
+            
             foreach (var formFile in files)
             {
                 var mediaPath = Path.Combine(_env.WebRootPath, "Media");
@@ -46,7 +48,7 @@ namespace ArizaApp.Services
                 var filePath = Path.Combine(mediaPath, newFileName);
 
                 if (!string.IsNullOrEmpty(newFileName) && !string.IsNullOrEmpty(fileSize))
-                    _dbContext.UploadedFileRecords.Add(new UploadedFileRecords
+                    uploadedFileList.Add(new UploadedFileRecords
                     {
                         NotificationId = notificationId,
                         User = user,
@@ -66,9 +68,10 @@ namespace ArizaApp.Services
                 WebClient.UploadFile(uri, "POST", filePath);
             }
 
-            var result = await _dbContext.SaveChangesAsync();
+            await _dbContext.UploadedFileRecords.AddRangeAsync(uploadedFileList);
+            await _dbContext.SaveChangesAsync();
 
-            return result > 0;
+            return uploadedFileList;
         }
     }
 }

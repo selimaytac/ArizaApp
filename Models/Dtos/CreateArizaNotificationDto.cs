@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace ArizaApp.Models.Dtos
 {
@@ -50,7 +51,10 @@ namespace ArizaApp.Models.Dtos
             
         [DisplayName("Kesintiyi Onaylayan Yönetici")]
         public string ApprovedBy { get; set; }
-        
+
+        [DisplayName("Dosya Ekleri")]
+        public IList<FormFile> UploadedFiles { get; set; }
         public IEnumerable<int> FirmIdS { get; set; }
+        
     }
 }

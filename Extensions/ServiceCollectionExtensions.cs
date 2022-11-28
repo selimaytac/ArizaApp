@@ -9,6 +9,7 @@ namespace ArizaApp.Extensions
         public static IServiceCollection LoadCustomServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IMailSenderService, MailSenderService>();
+            serviceCollection.AddScoped<IFileUploadService, FileUploadService>();
             
             return serviceCollection;
         }

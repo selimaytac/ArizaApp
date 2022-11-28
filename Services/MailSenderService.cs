@@ -9,6 +9,7 @@ using ArizaApp.Services.Interfaces;
 using MailKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
@@ -25,21 +26,21 @@ namespace ArizaApp.Services
         }
 
 
-        public async Task SendEmailAsync(List<string> mailAddresses, string subject, ArizaModel mailModel)
+        public async Task SendEmailAsync(List<string> mailAddresses, string subject, ArizaModel mailModel, IList<IFormFile> attachments = null)
         {
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailOptions.Sender);
             email.Bcc.AddRange(mailAddresses.Select(MailboxAddress.Parse));
             email.Subject = subject;
-            email.Body = CreateArizaHtmlEmailBody(mailModel);
-
+            email.Body = CreateArizaHtmlEmailBody(mailModel, attachments);
+            
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync(_mailOptions.Host, _mailOptions.Port, SecureSocketOptions.None);
             await smtp.SendAsync(email);
             await smtp.DisconnectAsync(true);
         }
 
-        public MimeEntity CreateArizaHtmlEmailBody(ArizaModel mailModel)
+        public MimeEntity CreateArizaHtmlEmailBody(ArizaModel mailModel, IList<IFormFile> attachments = null)
         {
             var path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot\\mailTemplates\\");
             var templateName = string.Empty;
@@ -58,10 +59,19 @@ namespace ArizaApp.Services
                 mailText = ReplaceArizaBody(mailText, mailModel);
             else
                 mailText = ReplacePlanliCalismaBody(mailText, mailModel);            
+            
             var builder = new BodyBuilder
             {
-                HtmlBody = mailText
+                HtmlBody = mailText,
             };
+
+            if (attachments is not null)
+            {
+                foreach (var attachment in attachments)
+                {
+                    builder.Attachments.Add(attachment.FileName, attachment.OpenReadStream());
+                }
+            }
 
             return builder.ToMessageBody();
         }

@@ -8,6 +8,7 @@ using ArizaApp.Models.Entities;
 using ArizaApp.Services.Interfaces;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,14 @@ namespace ArizaApp.Controllers
     public class NotificationController : BaseController
     {
         private readonly IMailSenderService _mailSenderService;
+        private readonly IFileUploadService _fileUploadService;
 
         public NotificationController(ArizaDbContext dbContext, IMailSenderService mailSenderService,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager, IFileUploadService fileUploadService)
             : base(userManager, null, null, dbContext)
         {
             _mailSenderService = mailSenderService;
+            _fileUploadService = fileUploadService;
         }
 
         [HttpGet]
@@ -45,35 +48,44 @@ namespace ArizaApp.Controllers
 
         [HttpPost]
         [Authorize(Roles = RoleTypes.AdminEditor)]
+        [RequestSizeLimit(100_000_000)]
         public async Task<IActionResult> CreateArizaNotification(CreateArizaNotificationDto createDto)
         {
             if (ModelState.IsValid)
             {
-                var ariza = createDto.Adapt<ArizaModel>();
-                ariza.User = CurrentUser;
-                ariza.UserId = CurrentUser.Id;
-
-                if (createDto.SendMail)
-                {
-                    var firms = await DbContext.FirmRecords
+                var notificationModel = createDto.Adapt<ArizaModel>();
+                notificationModel.User = CurrentUser;
+                notificationModel.UserId = CurrentUser.Id;
+               
+                var firms = await DbContext.FirmRecords
                         .Include(x => x.Emails)
                         .Where(x => createDto.FirmIdS.Contains(x.Id))
                         .ToListAsync();
 
-                    ariza.Firms = firms;
+                notificationModel.Firms = firms;
 
+                // Add record notification to db before sending mail
+                
+                await DbContext.AddAsync(notificationModel);
+                await DbContext.SaveChangesAsync();
+
+                if(createDto.UploadedFiles is { Count: > 0 })
+                {
+                    var files = await _fileUploadService.UploadFileAsync(createDto.UploadedFiles, notificationModel.Id, CurrentUser);
+                    notificationModel.UploadedFileRecords = files;
+                }
+                
+                if (createDto.SendMail)
+                {
                     var emails = firms
                         .SelectMany(x => x.Emails)
                         .Select(x => x.EmailAddress)
                         .Distinct().ToList();
 
-                    await _mailSenderService.SendEmailAsync(emails, createDto.MailSubject, ariza);
+                    await _mailSenderService.SendEmailAsync(emails, createDto.MailSubject, notificationModel);
                     CurrentUser.SendCount++;
                 }
-
-                await DbContext.AddAsync(ariza);
-                await DbContext.SaveChangesAsync();
-
+                
                 return RedirectToAction("GetNotifications");
             }
 

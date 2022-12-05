@@ -82,7 +82,7 @@ namespace ArizaApp.Controllers
                         .Select(x => x.EmailAddress)
                         .Distinct().ToList();
 
-                    await _mailSenderService.SendEmailAsync(emails, createDto.MailSubject, notificationModel);
+                    await _mailSenderService.SendEmailAsync(emails, createDto.MailSubject, notificationModel, attachments);
                     CurrentUser.SendCount++;
                 }
                 

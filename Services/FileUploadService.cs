@@ -27,20 +27,20 @@ namespace ArizaApp.Services
             _serverOptions = serverOptions.Value;
         }
 
-        public async Task<List<UploadedFileRecords>> UploadFileAsync(IList<FormFile> files, int notificationId, AppUser user)
+        public async Task<List<UploadedFileRecords>> UploadFileAsync(IList<IFormFile> files, int notificationId, AppUser user)
         {
             var uploadedFileList = new List<UploadedFileRecords>();
             
             foreach (var formFile in files)
             {
-                var mediaPath = Path.Combine(_env.WebRootPath, "Media");
+                var mediaPath = Path.Combine(_serverOptions.AttachmentFileUploadPath, "EnaAttachments");
                 
                 if(!Directory.Exists(mediaPath))
                     Directory.CreateDirectory(mediaPath);
                 
                 var fileSize = GeneralExtensions.CalculateFileSize(formFile.Length);
 
-                var newFileName = $"{formFile.Name}_{DateTime.Now.FullDateAndTimeStringWithUnderscore()}" +
+                var newFileName = $"{formFile.FileName}_{user.UserName}_{DateTime.Now.FullDateAndTimeStringWithUnderscore()}" +
                                   Path.GetExtension(formFile.FileName);
 
                 if (formFile.Length <= 0) continue;
@@ -61,11 +61,6 @@ namespace ArizaApp.Services
 
                 await using var stream = File.Create(filePath);
                 await formFile.CopyToAsync(stream);
-
-                var WebClient = new WebClient();
-                WebClient.Credentials = new NetworkCredential(_serverOptions.NetworkUserName, _serverOptions.NetworkUserPassword);
-                var uri = new Uri(_serverOptions.RemoteUploadFileFullPath);
-                WebClient.UploadFile(uri, "POST", filePath);
             }
 
             await _dbContext.UploadedFileRecords.AddRangeAsync(uploadedFileList);

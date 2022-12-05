@@ -105,9 +105,8 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="UploadedFiles" class="control-label"></label>
-                <input type="file" asp-for="UploadedFiles" multiple/>
-                <span asp-validation-for="UploadedFiles" class="text-danger"></span>
+                <label class="control-label">Dosya Ekleri</label>
+                <input type="file" name="attachments" id="attachments" multiple/>
             </div>
 
             @if (ViewBag.Firms != null)

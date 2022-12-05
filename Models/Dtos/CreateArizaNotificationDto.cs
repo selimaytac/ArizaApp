@@ -53,7 +53,6 @@ namespace ArizaApp.Models.Dtos
         public string ApprovedBy { get; set; }
 
         [DisplayName("Dosya Ekleri")]
-        public IList<FormFile> UploadedFiles { get; set; }
         public IEnumerable<int> FirmIdS { get; set; }
         
     }

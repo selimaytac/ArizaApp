@@ -7,6 +7,6 @@ namespace ArizaApp.Services.Interfaces
 {
     public interface IFileUploadService
     {
-        Task<List<UploadedFileRecords>> UploadFileAsync(IList<FormFile> files, int notificationId, AppUser user);
+        Task<List<UploadedFileRecords>> UploadFileAsync(IList<IFormFile> files, int notificationId, AppUser user);
     }
 }

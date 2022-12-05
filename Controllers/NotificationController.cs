@@ -49,7 +49,7 @@ namespace ArizaApp.Controllers
         [HttpPost]
         [Authorize(Roles = RoleTypes.AdminEditor)]
         [RequestSizeLimit(100_000_000)]
-        public async Task<IActionResult> CreateArizaNotification(CreateArizaNotificationDto createDto)
+        public async Task<IActionResult> CreateArizaNotification(CreateArizaNotificationDto createDto, IList<IFormFile> attachments)
         {
             if (ModelState.IsValid)
             {
@@ -62,16 +62,16 @@ namespace ArizaApp.Controllers
                         .Where(x => createDto.FirmIdS.Contains(x.Id))
                         .ToListAsync();
 
-                notificationModel.Firms = firms;
+                notificationModel.Firms = firms ?? new List<FirmRecord>();
 
                 // Add record notification to db before sending mail
                 
                 await DbContext.AddAsync(notificationModel);
                 await DbContext.SaveChangesAsync();
 
-                if(createDto.UploadedFiles is { Count: > 0 })
+                if(attachments is { Count: > 0 })
                 {
-                    var files = await _fileUploadService.UploadFileAsync(createDto.UploadedFiles, notificationModel.Id, CurrentUser);
+                    var files = await _fileUploadService.UploadFileAsync(attachments, notificationModel.Id, CurrentUser);
                     notificationModel.UploadedFileRecords = files;
                 }
                 

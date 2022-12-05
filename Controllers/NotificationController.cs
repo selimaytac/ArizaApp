@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArizaApp.Migrations;
 using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Dtos;
 using ArizaApp.Models.Entities;
+using ArizaApp.Models.Options;
 using ArizaApp.Services.Interfaces;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArizaApp.Controllers
@@ -97,8 +100,18 @@ namespace ArizaApp.Controllers
         [Authorize(Roles = RoleTypes.AdminEditor)]
         public async Task<IActionResult> UpdateArizaNotification(int id)
         {
-            var arizaModel = await DbContext.ArizaModels.FindAsync(id);
-            return View(arizaModel.Adapt<UpdateArizaNotificationDto>());
+            var notificationModel = await DbContext.ArizaModels
+                .Include(x => x.UploadedFileRecords)
+                .Include(x => x.Firms)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            
+            ViewBag.AllFirms = 
+                await DbContext.FirmRecords
+                    .Where(x => !notificationModel.Firms.Select(f => f.Id).Contains(x.Id))
+                    .OrderBy(f => f.FirmName)
+                    .ToListAsync();
+            
+            return View(notificationModel.Adapt<UpdateArizaNotificationDto>());
         }
 
         [HttpPost]
@@ -149,14 +162,49 @@ namespace ArizaApp.Controllers
         [Authorize(Roles = RoleTypes.AdminEditor)]
         public async Task<IActionResult> DeleteArizaNotification(int id)
         {
-            var arizaModel = await DbContext.ArizaModels.FindAsync(id);
+            var notificationModel = await DbContext.ArizaModels.FindAsync(id);
 
-            if (arizaModel == null)
+            if (notificationModel == null)
                 return RedirectToAction("GetNotifications");
 
-            DbContext.ArizaModels.Remove(arizaModel);
+            DbContext.ArizaModels.Remove(notificationModel);
             await DbContext.SaveChangesAsync();
             return RedirectToAction("GetNotifications");
         }
+
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.AllRoles)]
+        public async Task<IActionResult> GetNotificationDetails(int id)
+        {
+            var notificationModel = await DbContext.ArizaModels
+                .Include(x => x.UploadedFileRecords)
+                .Include(x => x.Firms)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            ViewBag.Emails = await DbContext.FirmRecords
+                    .Include(x => x.Emails)
+                    .Where(x => notificationModel.Firms.Select(f => f.FirmName).Contains(x.FirmName))
+                    .SelectMany(x => x.Emails)
+                    .Select(x => x.EmailAddress)
+                    .Distinct()
+                    .ToListAsync();
+
+            return View(notificationModel);
+        }
+        
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.AllRoles)]
+        public async Task<IActionResult> DownloadFile(int id)
+        {
+            var file = await DbContext.UploadedFileRecords.FindAsync(id);
+            var fileBytes = await System.IO.File.ReadAllBytesAsync(file.FilePath);
+            
+            var fileProvider = new FileExtensionContentTypeProvider();
+            
+            fileProvider.TryGetContentType(file.FilePath, out var contentType);
+            
+            return File(fileBytes, contentType ?? "application/json", file.FileName);
+        }
+        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ArizaApp.Models.Entities;
 
 namespace ArizaApp.Models.Dtos
 {
@@ -51,5 +52,11 @@ namespace ArizaApp.Models.Dtos
         [Required]
         [DisplayName("Tekrar Mail Gönderimi")]
         public bool SendMailAgain { get; set; } = false;
+
+        [DisplayName("Mail Ekleri")]
+        public IEnumerable<UploadedFileRecords> UploadedFileRecords { get; set; }
+        
+        [DisplayName("Firmalar")]
+        public IEnumerable<FirmRecord> Firms { get; set; }
     }
 }

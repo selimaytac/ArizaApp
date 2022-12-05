@@ -52,7 +52,6 @@ namespace ArizaApp.Models.Dtos
         [DisplayName("Kesintiyi Onaylayan Yönetici")]
         public string ApprovedBy { get; set; }
 
-        [DisplayName("Dosya Ekleri")]
         public IEnumerable<int> FirmIdS { get; set; }
         
     }

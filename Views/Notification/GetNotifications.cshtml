@@ -10,9 +10,11 @@
 <table id="getNotifications" class="display table table-bordered" style="width:100%">
     <thead>
     <tr>
+        <th style="max-width: 300px">İşlemler</th>
         <th>Bülten No</th>
         <th>Bildirmi Yapan</th>
         <th>Mail Başlığı</th>
+        <th>Etkilenen Firmalar</th>
         <th>Bülten Tipi</th>
         <th>Durum</th>
         <th>Öncelik</th>
@@ -21,19 +23,22 @@
         <th>Arıza Sebebi</th>
         <th>Alarm</th>
         <th>Etkilenen Servisler</th>
-        <th>Etkilenen Firmalar</th>
         <th>Mail Gönderimi</th>
-        <th style="max-width: 300px">İşlemler</th>
-
     </tr>
     </thead>
     <tbody>
     @foreach (var n in Model)
     {
         <tr class="text-center">
+            <td>
+                <a asp-controller="Notification" asp-action="GetNotificationDetails" asp-route-id="@n.Id" class="btn btn-success btn-sm">Detay</a>
+                <a asp-controller="Notification" asp-action="UpdateArizaNotification" asp-route-id="@n.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                <a asp-controller="Notification" asp-action="DeleteConfirmArizaNotification" asp-route-id="@n.Id" class="btn btn-danger btn-sm">Sil</a>
+            </td>
             <td>@n.FaultNo</td>
             <td>@n.NotifiedBy</td>
             <td>@n.MailSubject</td>
+            <td>@n.AffectedFirms</td>
             <td>@n.FaultType</td>
             <td>@n.State</td>
             <td>@n.Priority</td>
@@ -42,20 +47,17 @@
             <td>@n.FailureCause</td>
             <td>@(n.AlarmStatus ? "Evet" : "Hayır")</td>
             <td>@n.AffectedServices</td>
-            <td>@n.AffectedFirms</td>
             <td>@(n.SendMail ? "Gönderildi" : "Gönderilmedi")</td>
-            <td>
-                <a asp-controller="Notification" asp-action="UpdateArizaNotification" asp-route-id="@n.Id" class="btn btn-warning btn-sm">Güncelle</a>
-                <a asp-controller="Notification" asp-action="DeleteConfirmArizaNotification" asp-route-id="@n.Id" class="btn btn-danger btn-sm">Sil</a>
-            </td>
         </tr>
     }
     </tbody>
-    <tfoot> 
+    <tfoot>
     <tr class="text-center">
+        <th style="max-width: 300px">İşlemler</th>
         <th>Bülten No</th>
         <th>Bildirmi Yapan</th>
         <th>Mail Başlığı</th>
+        <th>Etkilenen Firmalar</th>
         <th>Bülten Tipi</th>
         <th>Durum</th>
         <th>Öncelik</th>
@@ -64,9 +66,7 @@
         <th>Arıza Sebebi</th>
         <th>Alarm</th>
         <th>Etkilenen Servisler</th>
-        <th>Etkilenen Firmalar</th>
         <th>Mail Gönderimi</th>
-        <th style="max-width: 300px">İşlemler</th>
     </tr>
     </tfoot>
 </table>

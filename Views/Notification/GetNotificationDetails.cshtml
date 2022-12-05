@@ -1,0 +1,92 @@
+﻿@using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View
+@model ArizaApp.Models.Entities.ArizaModel
+
+@{
+    ViewBag.Title = "Bildiri Detayları";
+    Layout = "_Layout";
+}
+
+<h3 class="text-danger"><span class="font-weight-bold">@Model.MailSubject</span> konulu arıza kaydını silmek istediğinize emin misiniz?</h3>
+<div>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-3 border">
+            <label asp-for="MailSubject" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @Model.MailSubject
+        </dd>
+        <dt class="col-sm-3 border">
+            <label asp-for="FaultNo" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @Model.FaultNo
+        </dd>
+        <dt class="col-sm-3 border">
+            <label asp-for="FaultType" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @Model.FaultType
+        </dd>
+        <dt class="col-sm-3 border">
+            <label asp-for="Description" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @Model.Description
+        </dd>
+        <dt class="col-sm-3 border">
+            <label class="control-label">Başlangıç - Bitiş</label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @Model.StartDate - @Model.EndDate
+        </dd>
+        <dt class="col-sm-3 border">
+            <label asp-for="AffectedFirms" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @Model.AffectedFirms
+        </dd>
+        <dt class="col-sm-3 border">
+            <label asp-for="AffectedServices" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @Model.AffectedServices
+        </dd>
+        <dt class="col-sm-3 border">
+            <label class="control-label">Mail Atılan Firmalar</label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @if (ViewBag.Emails != null && ((IEnumerable<dynamic>)ViewBag.Emails).Any())
+            {
+                @foreach (var emailAddress in ViewBag.Emails as List<string>)
+                {
+                    <span class="badge bg-success">@emailAddress</span>
+                }
+            }
+            else
+            {
+                <span class="text-success mt-1">Herhangi bir email adresi bu bildiriye <span class="text-danger text-bold">kaydedilmemiştir</span>.</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3 border">
+            <label class="control-label">Ek olarak gönderilen Dosya Bilgileri</label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @if (@Model.UploadedFileRecords.Any())
+            {
+                foreach (var file in Model.UploadedFileRecords)
+                {
+                    <a href="@Url.Action("DownloadFile", "Notification", new { id = file.Id })" class="btn btn-outline-success btn-sm mt-1">@file.FileName</a>
+                }
+            }
+            else
+            {
+                <span class="text-success mt-1">Herhangi bir ek dosya <span class="text-danger text-bold">gönderilmemiş</span>.</span>
+            }
+        </dd>
+    </dl>
+
+    <span class="text-sm-center text-danger">Bu işlem geri alınamaz!</span><br>
+    <a asp-for="EmailDelete" asp-controller="Notification" asp-action="DeleteArizaNotification" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Bildiri Kaydını Sil</a>
+</div>

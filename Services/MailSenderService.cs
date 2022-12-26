@@ -29,6 +29,7 @@ namespace ArizaApp.Services
         public async Task SendEmailAsync(List<string> mailAddresses, string subject, ArizaModel mailModel, IList<IFormFile> attachments = null)
         {
             var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(_mailOptions.Sender));
             email.Sender = MailboxAddress.Parse(_mailOptions.Sender);
             email.Bcc.AddRange(mailAddresses.Select(MailboxAddress.Parse));
             email.Subject = subject;

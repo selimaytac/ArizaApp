@@ -24,35 +24,41 @@
             @Model.FaultNo
         </dd>
         <dt class="col-sm-3 border">
-                    <label asp-for="FaultType" class="control-label"></label>
-                </dt>
+            <label asp-for="FaultType" class="control-label"></label>
+        </dt>
         <dd class="col-sm-9">
             @Model.FaultType
         </dd>
         <dt class="col-sm-3 border">
-                    <label asp-for="Description" class="control-label"></label>
-                </dt>
+            <label asp-for="FailureCause" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9 pt-2">
+            @Model.FailureCause
+        </dd>
+        <dt class="col-sm-3 border">
+            <label asp-for="Description" class="control-label"></label>
+        </dt>
         <dd class="col-sm-9">
             @Model.Description
         </dd>
         <dt class="col-sm-3 border">
-                    <label class="control-label">Başlangıç - Bitiş</label>
-                </dt>
+            <label class="control-label">Başlangıç - Bitiş</label>
+        </dt>
         <dd class="col-sm-9">
             @Model.StartDate - @Model.EndDate
         </dd>
         <dt class="col-sm-3 border">
-                    <label asp-for="AffectedFirms" class="control-label"></label>
-                </dt>
+            <label asp-for="AffectedFirms" class="control-label"></label>
+        </dt>
         <dd class="col-sm-9">
             @Model.AffectedFirms
         </dd>
         <dt class="col-sm-3 border">
-                    <label asp-for="AffectedServices" class="control-label"></label>
-                </dt>
-                <dd class="col-sm-9">
-                    @Model.AffectedServices
-                </dd>
+            <label asp-for="AffectedServices" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-9">
+            @Model.AffectedServices
+        </dd>
     </dl>
 
     <span class="text-sm-center text-danger">Bu işlem geri alınamaz!</span><br>

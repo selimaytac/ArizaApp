@@ -66,7 +66,7 @@ $(document).ready(function () {
         responsive: true,
         scrollX:        true,
         scrollCollapse: true,
-        paging:         false,
+        paging:         true,
         columnDefs: [
             { width: '20%', targets: 0 }
         ],

@@ -27,6 +27,9 @@ namespace ArizaApp.Models.Entities
         [DisplayName("Kesintiyi Onaylayan Yönetici")]
         public string ApprovedBy { get; set; }
         public string UserId { get; set; }
+        
+        [DisplayName("Arıza Kayıt Tarihi")] 
+        public DateTime CreatedDate { get; set; }
         public AppUser User { get; set; }
         public IEnumerable<FirmRecord> Firms { get; set; }
         public IEnumerable<UploadedFileRecords> UploadedFileRecords { get; set; }

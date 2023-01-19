@@ -14,7 +14,7 @@ namespace ArizaApp.Models.Mappers
             builder.Property(f => f.FileName).IsRequired().HasMaxLength(250);
             builder.Property(f => f.FilePath).IsRequired().HasMaxLength(300);
             builder.Property(f => f.FileExtension).IsRequired().HasMaxLength(50);
-            builder.Property(f => f.UploadDate).IsRequired().HasDefaultValue(DateTime.Now);
+            builder.Property(f => f.UploadDate).IsRequired().HasDefaultValueSql("getdate()");
             builder.Property(f => f.FileSize).IsRequired();
             builder.HasOne<AppUser>(f => f.User).WithMany(f => f.UploadedFileRecords).HasForeignKey(f => f.UserId);
             builder.HasOne<ArizaModel>(f => f.Notification).WithMany(f => f.UploadedFileRecords).HasForeignKey(f => f.NotificationId);

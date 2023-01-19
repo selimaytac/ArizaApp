@@ -35,7 +35,7 @@ namespace ArizaApp.Controllers
         [Authorize(Roles = RoleTypes.AllRoles)]
         public async Task<IActionResult> GetNotifications()
         {
-            var notifications = await DbContext.ArizaModels.ToListAsync();
+            var notifications = await DbContext.ArizaModels.OrderByDescending(x => x.CreatedDate).ToListAsync();
 
             return View(notifications);
         }

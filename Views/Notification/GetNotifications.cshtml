@@ -23,6 +23,7 @@
         <th>Arıza Sebebi</th>
         <th>Alarm</th>
         <th>Etkilenen Servisler</th>
+        <th>Arıza Kayıt Tarihi</th>
         <th>Mail Gönderimi</th>
     </tr>
     </thead>
@@ -47,6 +48,7 @@
             <td>@n.FailureCause</td>
             <td>@(n.AlarmStatus ? "Evet" : "Hayır")</td>
             <td>@n.AffectedServices</td>
+            <td>@n.CreatedDate.ToString("dd/MM/yyyy HH:mm")</td>
             <td>@(n.SendMail ? "Gönderildi" : "Gönderilmedi")</td>
         </tr>
     }
@@ -66,7 +68,23 @@
         <th>Arıza Sebebi</th>
         <th>Alarm</th>
         <th>Etkilenen Servisler</th>
+        <th>Arıza Kayıt Tarihi</th>
         <th>Mail Gönderimi</th>
     </tr>
     </tfoot>
 </table>
+
+<script >
+var columnsToModify = [4, 10, 12];
+var table = document.getElementById("getNotifications");
+for (var i = 0, row; row = table.rows[i]; i++) {
+  for (var j = 0, col; col = row.cells[j]; j++) {
+    if(columnsToModify.indexOf(j) !== -1){
+      var text = col.innerHTML;
+      if (text.length > 30) {
+        col.innerHTML = text.substring(0, 30) + "...";
+      }
+    }
+  }
+}
+</script>

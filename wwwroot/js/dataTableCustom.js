@@ -63,8 +63,15 @@ $(document).ready(function () {
         columnDefs: [{
             target: '_all', className: 'text-center'
         }],
-        responsive: true
-    });
+        responsive: true,
+        scrollX:        true,
+        scrollCollapse: true,
+        paging:         false,
+        columnDefs: [
+            { width: '20%', targets: 0 }
+        ],
+        fixedColumns: true
+    }).columns.adjust().draw();
     
     $('#getDepartments').DataTable({
         "language": {

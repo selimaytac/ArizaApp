@@ -25,6 +25,7 @@ namespace ArizaApp.Models.Mappers
             builder.Property(a => a.AffectedServices).HasMaxLength(700).IsRequired();
             builder.Property(a => a.ApprovedBy).HasMaxLength(100);
             builder.Property(a => a.SendMail).IsRequired();
+            builder.Property(a => a.CreatedDate).IsRequired().HasDefaultValueSql("getdate()");
             builder.HasOne<AppUser>(u => u.User).WithMany(r => r.Arizalar).HasForeignKey(u => u.UserId);
             builder.HasMany<FirmRecord>(er => er.Firms).WithMany(fr => fr.ArizaModels);
         }

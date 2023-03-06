@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <Folder Include="MailTemplate" />
+      <Folder Include="Pages" />
     </ItemGroup>
 
 </Project>

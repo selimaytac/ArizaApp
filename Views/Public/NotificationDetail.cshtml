@@ -1,0 +1,74 @@
+﻿@model ArizaApp.Models.Entities.ArizaModel
+
+@{
+    ViewBag.Title = "Notification Detayları";
+    Layout = "_Layout_Public";
+}
+<div class="container">
+    <h3 class="mt-5 text-warning text-center"><span class="font-weight-bold">@Model.MailSubject</span> @Model.FaultType Konulu kaydın detayını görüntülüyorsunuz</h3>
+    <div>
+        <hr/>
+        <dl class="row">
+            <dt class="col-sm-3 border">
+                <label asp-for="MailSubject" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.MailSubject
+            </dd>
+            <dt class="col-sm-3 border">
+                <label asp-for="FaultNo" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.FaultNo
+            </dd>
+            <dt class="col-sm-3 border">
+                <label asp-for="FaultType" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.FaultType
+            </dd>
+            <dt class="col-sm-3 border">
+                <label asp-for="FailureCause" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.FailureCause
+            </dd>
+            <dt class="col-sm-3 border">
+                <label asp-for="Description" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.Description
+            </dd>
+            <dt class="col-sm-3 border">
+                <label class="control-label">Başlangıç - Bitiş</label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.StartDate - @Model.EndDate
+            </dd>
+            <dt class="col-sm-3 border">
+                <label asp-for="AffectedFirms" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.AffectedFirms
+            </dd>
+            <dt class="col-sm-3 border">
+                <label asp-for="AffectedServices" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.AffectedServices
+            </dd>
+            <dt class="col-sm-3 border">
+                <label asp-for="CreatedDate" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-9 pt-2">
+                @Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")
+            </dd>
+        </dl>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <a asp-action="AllNotifications" class="btn btn-primary btn-sm">Geri Dön</a>
+        </div>
+    </div>
+</div>

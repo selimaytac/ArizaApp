@@ -1,0 +1,115 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using ArizaApp.Models.Entities
+@model ArizaApp.Models.Entities.ArizaModel
+
+@{
+    Layout = "_Layout_Public";
+    ViewBag.Title = "AllNotifications";
+}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm content-overflow">
+            <h3 class="text-center">Arıza Kayıtları</h3>
+            <hr>
+            <ul class="timeline">
+                @foreach (var ariza in ViewBag.ArizaNotfList as List<ArizaModel>)
+                {
+                    <li>
+                        <div class="timeline-badge danger">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">@ariza.MailSubject</h4>
+                                <p>
+                                    @if (ariza.EndDate != "-" || string.IsNullOrEmpty(ariza.EndDate))
+                                    {
+                                        <small class="text-muted"><i class="glyphicon glyphicon-time"></i>@ariza.StartDate - @ariza.EndDate</small>
+                                    }
+                                    else
+                                    {
+                                        <small class="text-muted">
+                                            <i class="glyphicon glyphicon-time"></i>@ariza.StartDate
+                                        </small>
+                                    }
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>@ariza.Description</p>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <h6>Etkilenen Firmalar</h6>
+                                        <div class="font-weight-bold">@ariza.AffectedFirms</div>
+                                    </div>
+                                    <div class="col">
+                                        <h6>Etkilenen Servisler</h6>
+                                        <div class="font-weight-bold">@ariza.AffectedServices</div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="btn-group">
+                                    <div class="btn-group">
+                                        <a asp-action="NotificationDetail" asp-route-id="@ariza.Id" asp-controller="Public" class="btn btn-primary btn-sm">Arıza Detay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm content-overflow">
+            <h3 class="text-center">Planlı Çalışma</h3>
+            <hr>
+            <ul class="timeline">
+                @foreach (var ariza in ViewBag.PlanliNotList as List<ArizaModel>)
+                {
+                    <li>
+                        <div class="timeline-badge warning">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">@ariza.MailSubject</h4>
+                                <p>
+                                    @if (ariza.EndDate != "-" || string.IsNullOrEmpty(ariza.EndDate))
+                                    {
+                                        <small class="text-muted"><i class="glyphicon glyphicon-time"></i>@ariza.StartDate - @ariza.EndDate</small>
+                                    }
+                                    else
+                                    {
+                                        <small class="text-muted">
+                                            <i class="glyphicon glyphicon-time"></i>@ariza.StartDate
+                                        </small>
+                                    }
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>@ariza.Description</p>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <h6>Etkilenen Firmalar</h6>
+                                        <div class="font-weight-bold">@ariza.AffectedFirms</div>
+                                    </div>
+                                    <div class="col">
+                                        <h6>Etkilenen Servisler</h6>
+                                        <div class="font-weight-bold">@ariza.AffectedServices</div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="btn-group">
+                                    <div class="btn-group">
+                                        <a asp-action="NotificationDetail" asp-route-id="@ariza.Id" asp-controller="Public" class="btn btn-primary btn-sm">Planlı Çalışma Detay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

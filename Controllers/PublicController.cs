@@ -15,8 +15,8 @@ namespace ArizaApp.Controllers
 
         public IActionResult AllNotifications()
         {
-            ViewBag.ArizaNotfList = _dbContext.ArizaModels.Where(x => x.FaultType == "Arıza").ToList();
-            ViewBag.PlanliNotList = _dbContext.ArizaModels.Where(x => x.FaultType == "Planlı Çalışma").ToList();
+            ViewBag.ArizaNotfList = _dbContext.ArizaModels.Where(x => x.FaultType == "Arıza").OrderByDescending(x => x.CreatedDate).ToList();
+            ViewBag.PlanliNotList = _dbContext.ArizaModels.Where(x => x.FaultType == "Planlı Çalışma").OrderByDescending(x => x.CreatedDate).ToList();
             
             return View();
         }

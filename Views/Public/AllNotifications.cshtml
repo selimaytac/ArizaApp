@@ -7,17 +7,37 @@
     ViewBag.Title = "AllNotifications";
 }
 
+<div id="mySidepanel" class="sidepanel">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="btn-group text-center">
+        <button class="btn btn-sm btn-block btn-primary m-2" onclick="toggleGivenElementById('ariza-kaydi')">Aç/Kapat Arıza Kayıtları</button>
+        <button class="btn btn-sm btn-block btn-primary m-2" onclick="toggleGivenElementById('planli-calisma')">Aç/Kapat Planlı Çalışma</button>
+    </div>
+    <hr>
+    <div>
+        <input type="date" id="date-filter" class="datepicker form-control">
+        <br>
+        <button class="btn btn-sm btn-info filter-button-1" onclick="FilterAndHideByGivenDate()">Filtrele</button>
+        <button class="btn btn-sm btn-warning filter-button-2" onclick="clearFilter()">Filtreyi Temizle</button>
+    </div>
+</div>
+
+<button class="openbtn" onclick="openNav()">&#9776; Toolkit</button>
+
 <div class="container">
     <div class="row mt-5">
-        <div class="col-sm content-overflow">
+        <div class="col-sm content-overflow" id="ariza-kaydi">
             <h3 class="text-center">Arıza Kayıtları</h3>
             <hr>
             <ul class="timeline">
                 @foreach (var ariza in ViewBag.ArizaNotfList as List<ArizaModel>)
                 {
-                    <li>
+                    <li id="record-@ariza.Id">
                         <div class="timeline-badge danger">
-                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-dash" viewBox="0 0 16 16">
+                            <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
+                            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-5.5 0a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Z"/>
+                          </svg>
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
@@ -60,15 +80,18 @@
                 }
             </ul>
         </div>
-        <div class="col-sm content-overflow">
+        <div class="col-sm content-overflow" id="planli-calisma">
             <h3 class="text-center">Planlı Çalışma</h3>
             <hr>
             <ul class="timeline">
                 @foreach (var ariza in ViewBag.PlanliNotList as List<ArizaModel>)
                 {
-                    <li>
+                    <li id="record-@ariza.Id">
                         <div class="timeline-badge warning">
-                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-check-fill" viewBox="0 0 16 16">
+                             <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 4.697v4.974A4.491 4.491 0 0 0 12.5 8a4.49 4.49 0 0 0-1.965.45l-.338-.207L16 4.697Z"/>
+                             <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/>
+                           </svg>
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
@@ -113,3 +136,80 @@
         </div>
     </div>
 </div>
+
+
+<script >
+
+let toggleGivenElementById = (id) => {
+    let element = document.getElementById(id);
+    if (element.style.display === "none") {
+        element.style.display = "block";
+    } else {
+        element.style.display = "none";
+    }
+}
+
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+  document.getElementsByClassName("openbtn").style.display = "none";
+}
+
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
+  document.getElementsByClassName("openbtn").style.display = "block";
+}
+
+function ConvertCSharpDateTimeToJavascriptDate(cSharpDate) {
+    var day = cSharpDate.substring(0, 2).padStart(2, '0');
+    var month = cSharpDate.substring(4, 6).padStart(2, '0');
+    var year = cSharpDate.substring(6, 10);
+    return new Date(year, month-1, day);
+}
+
+let dict = {};
+function loadAllObjectsToDict(){
+    @{
+        foreach (var ariza in ViewBag.ArizaNotfList as List<ArizaModel>)
+        {
+            <text>
+                dict[@ariza.Id] = ConvertCSharpDateTimeToJavascriptDate("@ariza.StartDate");
+            </text>
+        }
+        foreach (var ariza in ViewBag.PlanliNotList as List<ArizaModel>)
+        {
+            <text>
+                dict[@ariza.Id] = ConvertCSharpDateTimeToJavascriptDate("@ariza.StartDate");
+            </text>
+        }
+    }
+}
+function FilterAndHideByGivenDate(){
+
+    loadAllObjectsToDict();
+    
+    let date = document.getElementById("date-filter").value;
+    console.log(date);
+    let day = (parseInt(date.substring(8, 10))-1).toString();
+    let month = date.substring(5, 7);
+    let year = date.substring(0, 4);
+    console.log(day + "-" + month + "-" + year);
+    let dateObject = new Date(year, month-1, day)
+
+    for (let key in dict) {
+        if (dict[key] <= dateObject) {
+            document.getElementById("record-" + key).style.display = "none";
+        }else{
+            document.getElementById("record-" + key).style.display = "block";
+        }
+    }
+}
+
+function clearFilter(){
+    for (let key in dict) {
+        document.getElementById("record-" + key).style.display = "block";
+    }
+}
+
+openNav();
+
+</script>

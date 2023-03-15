@@ -1,0 +1,133 @@
+﻿@model List<ArizaApp.Models.Entities.ArizaModel>
+
+@{
+    ViewBag.Title = @Model.FirstOrDefault().FaultType + " Bildirileri";
+    Layout = "_Layout_Public";
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/notification_list.css">
+
+
+<div class="container-fluid">
+        <h1 class="text-center">@Model.FirstOrDefault().FaultType Bildirileri</h1>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 d-block align-items-stretch pt-2">
+                <div class="card h-100 card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title">@item.FaultNo</h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="widget-49 h-100">
+                            <div class="widget-49-title-wrapper">
+                                <div class="color-catcher">
+                                    <span class="widget-49-date-day data-date-day" data-date-day="@item.StartDate"></span>
+                                    <span class="widget-49-date-month month-value" data-date="@item.StartDate"></span>
+                                </div>
+                                <div class="widget-49-meeting-info">
+                                    <span class="widget-49-pro-title">@item.MailSubject</span>
+                                    <span class="widget-49-meeting-time">@item.StartDate - @item.EndDate</span>
+                                </div>
+                            </div>
+                            <ol class="widget-49-meeting-points">
+                                <li class="widget-49-meeting-item">
+                                    <span>@item.Description</span>
+                                </li>
+                                <li class="widget-49-meeting-item">
+                                    <span>@item.AffectedFirms</span>
+                                </li>
+                                <li class="widget-49-meeting-item">
+                                    <span>@item.AffectedServices</span>
+                                </li>
+                            </ol>
+                            <div class="widget-49-meeting-action">
+                                <a asp-action="NotificationDetail" asp-route-id="@item.Id" asp-controller="Public" class="btn btn-primary btn-sm">Detayları Görüntüle</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script >
+
+let i = 0;
+function GetColor(element){
+    let color_text = ["primary","success","warning"]
+    if (i % 3 == 0){
+        element.classList.add("widget-49-date-" + color_text[0]);
+    }
+    else if (i % 3 == 1){
+        element.classList.add("widget-49-date-" + color_text[1]);
+    }
+    else if (i % 3 == 2){
+        element.classList.add("widget-49-date-" + color_text[2]);
+    }
+}
+
+function GetDate(date, element){
+    element.innerHTML = date.substring(0,2);
+}
+
+function GetShortMonthNameInTurkishWithMonth(date, element){
+    let month = parseInt(date.substring(3,5))-1;
+    console.log(month)
+    let month_name = "";
+    switch (month){
+        case 0:
+            month_name = "Ocak";
+            break;
+        case 1:
+            month_name = "Şubat";
+            break;
+        case 2:
+            month_name = "Mart";
+            break;
+        case 3:
+            month_name = "Nisan";
+            break;
+        case 4:
+            month_name = "Mayıs";
+            break;
+        case 5:
+            month_name = "Haz";
+            break;
+        case 6:
+            month_name = "Tem";
+            break;
+        case 7:
+            month_name = "Ağus";
+            break;
+        case 8:
+            month_name = "Eylül";
+            break;
+        case 9:
+            month_name = "Ekim";
+            break;
+        case 10:
+            month_name = "Kasım";
+            break;
+        case 11:
+            month_name = "Aralık";
+            break;
+    }
+    element.innerHTML = month_name;
+
+}
+
+document.querySelectorAll(".data-date-day").forEach(element => {
+    GetDate(element.getAttribute("data-date-day"), element);
+});
+
+document.querySelectorAll(".color-catcher").forEach(element => {
+    GetColor(element);
+    i++;
+});
+
+document.querySelectorAll(".month-value").forEach(element => {
+    GetShortMonthNameInTurkishWithMonth(element.getAttribute("data-date"), element);
+});
+</script>

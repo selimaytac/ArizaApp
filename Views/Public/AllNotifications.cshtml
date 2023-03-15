@@ -192,7 +192,6 @@ function FilterAndHideByGivenDate(){
     let day = (parseInt(date.substring(8, 10))-1).toString();
     let month = date.substring(5, 7);
     let year = date.substring(0, 4);
-    console.log(day + "-" + month + "-" + year);
     let dateObject = new Date(year, month-1, day)
 
     for (let key in dict) {

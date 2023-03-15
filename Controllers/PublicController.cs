@@ -27,5 +27,12 @@ namespace ArizaApp.Controllers
             
             return View(result);
         }
+
+        public IActionResult GetNotificationList(string notfType)
+        {
+            var result = _dbContext.ArizaModels.Where(x => x.FaultType == notfType).OrderByDescending(x => x.CreatedDate).ToList();
+
+            return View(result);
+        }
     }
 }

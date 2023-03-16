@@ -32,17 +32,17 @@
                             </div>
                             <ol class="widget-49-meeting-points">
                                 <li class="widget-49-meeting-item">
-                                    <span>@item.Description</span>
+                                    <span class="font-weight-bold">Açıklama:</span><span>@item.Description</span>
                                 </li>
                                 <li class="widget-49-meeting-item">
-                                    <span>@item.AffectedFirms</span>
+                                    <span class="font-weight-bold">Etkilenen Firmalar:</span><span>@item.AffectedFirms</span>
                                 </li>
                                 <li class="widget-49-meeting-item">
-                                    <span>@item.AffectedServices</span>
+                                    <span class="font-weight-bold">Etiklenen Servisler:</span><span>@item.AffectedServices</span>
                                 </li>
                             </ol>
                             <div class="widget-49-meeting-action">
-                                <a asp-action="NotificationDetail" asp-route-id="@item.Id" asp-controller="Public" class="btn btn-primary btn-sm">Detayları Görüntüle</a>
+                                <a asp-action="NotificationDetail" asp-route-id="@item.Id" asp-controller="Public" class="btn btn-warning btn-sm">Detayları Görüntüle</a>
                             </div>
                         </div>
                     </div>

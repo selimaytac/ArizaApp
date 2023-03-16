@@ -19,7 +19,7 @@ namespace ArizaApp.Models.Entities
         [DisplayName("Açıklama")] public string Description { get; set; }
         [DisplayName("Başlangıç Zamanı")] public string StartDate { get; set; }
         [DisplayName("Bitiş Zamanı")] public string EndDate { get; set; }
-        [DisplayName("Arıza Sebebi")] public string FailureCause { get; set; }
+        [DisplayName("Bülten Sebebi")] public string FailureCause { get; set; }
         [DisplayName("Alarm Durumu")] public bool AlarmStatus { get; set; }
         [DisplayName("Etkilenen Servisler")] public string AffectedServices { get; set; }
         [DisplayName("Etkilenen Firmalar")] public string AffectedFirms { get; set; }
@@ -28,7 +28,7 @@ namespace ArizaApp.Models.Entities
         public string ApprovedBy { get; set; }
         public string UserId { get; set; }
         
-        [DisplayName("Arıza Kayıt Tarihi")] 
+        [DisplayName("Bülten Kayıt Tarihi")] 
         public DateTime CreatedDate { get; set; }
         public AppUser User { get; set; }
         public IEnumerable<FirmRecord> Firms { get; set; }

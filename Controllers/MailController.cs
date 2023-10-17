@@ -15,8 +15,8 @@ namespace ArizaApp.Controllers
 {
     public class MailController : BaseController
     {
-        public MailController(ArizaDbContext dbContext)
-            : base(null, null, null, dbContext)
+        public MailController(ArizaDbContext dbContext, UserManager<AppUser> userManager)
+            : base(userManager, null, null, dbContext)
         {
         }
 

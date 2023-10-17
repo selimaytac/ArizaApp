@@ -8,6 +8,7 @@ using ArizaApp.Models.Dtos;
 using ArizaApp.Models.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +17,8 @@ namespace ArizaApp.Controllers
 {
     public class DepartmentController : BaseController
     {
-        public DepartmentController(ArizaDbContext dbContext)
-            : base(null, null, null, dbContext)
+        public DepartmentController(ArizaDbContext dbContext, UserManager<AppUser> userManager)
+            : base(userManager, null, null, dbContext)
         {
         }
 

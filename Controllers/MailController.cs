@@ -1,4 +1,6 @@
+using System;
 using System.Threading.Tasks;
+using ArizaApp.Helpers;
 using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Dtos;
@@ -57,6 +59,9 @@ namespace ArizaApp.Controllers
 
                 DbContext.EmailRecords.Add(email);
                 await DbContext.SaveChangesAsync();
+                
+                var message = $"Email Created: {email.EmailAddress}";
+                GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.CreateEmail.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
 
                 return RedirectToAction("GetEmails");
             }
@@ -102,7 +107,11 @@ namespace ArizaApp.Controllers
                 email.EmailDescription = updateEmailDto.EmailDescription;
 
                 await DbContext.SaveChangesAsync();
+                var message = $"Email {emailExist} Updated: {email.EmailAddress}";
+                GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.UpdateEmail.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
 
+                
+                
                 return RedirectToAction("GetEmails");
             }
 
@@ -133,6 +142,9 @@ namespace ArizaApp.Controllers
 
             DbContext.EmailRecords.Remove(email);
             await DbContext.SaveChangesAsync();
+            
+            var message = $"Email Deleted: {email.EmailAddress}";
+            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.DeleteEmail.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
 
             return RedirectToAction("GetEmails");
         }

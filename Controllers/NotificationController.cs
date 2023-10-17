@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArizaApp.Helpers;
 using ArizaApp.Migrations;
 using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
@@ -59,7 +61,7 @@ namespace ArizaApp.Controllers
                 var notificationModel = createDto.Adapt<ArizaModel>();
                 notificationModel.User = CurrentUser;
                 notificationModel.UserId = CurrentUser.Id;
-               
+                
                 var firms = await DbContext.FirmRecords
                         .Include(x => x.Emails)
                         .Where(x => createDto.FirmIdS.Contains(x.Id))
@@ -87,6 +89,8 @@ namespace ArizaApp.Controllers
 
                     await _mailSenderService.SendEmailAsync(emails, createDto.MailSubject, notificationModel, attachments);
                     CurrentUser.SendCount++;
+                    var message = $"Notification Created with subject: {createDto.MailSubject}";
+                    GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.CreateNotification.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
                 }
                 
                 return RedirectToAction("GetNotifications");
@@ -141,6 +145,10 @@ namespace ArizaApp.Controllers
 
                 DbContext.ArizaModels.Update(arizaModel);
                 await DbContext.SaveChangesAsync();
+
+                var message = $"{updateDto.MailSubject} Notification Updated";
+                GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.UpdateNotification.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+                
                 return RedirectToAction("GetNotifications");
             }
 
@@ -169,6 +177,10 @@ namespace ArizaApp.Controllers
 
             DbContext.ArizaModels.Remove(notificationModel);
             await DbContext.SaveChangesAsync();
+            
+            var message = $"{notificationModel.MailSubject} Notification deleted";
+            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.DeleteNotification.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+            
             return RedirectToAction("GetNotifications");
         }
 
@@ -204,7 +216,7 @@ namespace ArizaApp.Controllers
             fileProvider.TryGetContentType(file.FilePath, out var contentType);
             
             return File(fileBytes, contentType ?? "application/json", file.FileName);
+            
         }
-        
     }
 }

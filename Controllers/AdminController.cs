@@ -95,6 +95,10 @@ namespace ArizaApp.Controllers
 
                             // add user to role || if role not exist, add Viewer role to the new user
                             await UserManager.AddToRoleAsync(user, role!.Name ?? "Viewer");
+
+                            var message = $"User Created with username: {createUserDto.UserName} by {CurrentUser.UserName}";
+                            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.CreateUser.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+
                             return RedirectToAction("GetUsers");
                         }
 
@@ -177,7 +181,37 @@ namespace ArizaApp.Controllers
                 }
             }
 
+            var message = $"User changed password with username: {CurrentUser.UserName}";
+            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.ChangePassword.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+            
             return View(changePasswordDto);
+        }
+        
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.Admin)]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+            
+            if (user == null) return RedirectToAction("GetUsers");
+            
+            user.IsActive = false;
+            await UserManager.UpdateAsync(user);
+             
+            var message = $"User deactivated with username: {user.UserName} by {CurrentUser.UserName}";
+            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.DeleteUser.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+
+
+            return RedirectToAction("Index");
+        }
+    
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.Admin)]
+        public async Task<IActionResult> SystemLogs()
+        {
+            var logs = await DbContext.LogRecords.OrderByDescending(x => x.Date).ToListAsync();
+            
+            return View(logs);
         }
     }
 }

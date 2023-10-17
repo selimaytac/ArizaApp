@@ -13,6 +13,7 @@ namespace ArizaApp.Models.DbContexts
         public DbSet<Department> Departments { get; set; }
         public DbSet<EmailRecord> EmailRecords { get; set; }
         public DbSet<FirmRecord> FirmRecords { get; set; }
+        public DbSet<LogRecord> LogRecords { get; set; }
         public DbSet<UploadedFileRecords> UploadedFileRecords { get; set; }
         public ArizaDbContext(DbContextOptions<ArizaDbContext> options) : base(options)
         {
@@ -30,6 +31,7 @@ namespace ArizaApp.Models.DbContexts
             modelBuilder.ApplyConfiguration(new EmailRecordMap());
             modelBuilder.ApplyConfiguration(new FirmRecordMap());
             modelBuilder.ApplyConfiguration(new UploadedFileRecordsMap());
+            modelBuilder.ApplyConfiguration(new LogRecordMap());
             base.OnModelCreating(modelBuilder);
         }
     }

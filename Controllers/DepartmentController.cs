@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using ArizaApp.Helpers;
 using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Dtos;
@@ -53,6 +55,9 @@ namespace ArizaApp.Controllers
 
                 await DbContext.Departments.AddAsync(department);
                 await DbContext.SaveChangesAsync();
+                
+                var message = $"Department Created: {department.DepartmentName}";
+                GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.CreateDepartment.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
 
                 return RedirectToAction("GetDepartments");
             }
@@ -96,6 +101,8 @@ namespace ArizaApp.Controllers
                 deparment.Description = department.Description;
 
                 await DbContext.SaveChangesAsync();
+                var message = $"Department Updated: {department.DepartmentName}";
+                GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.UpdateDepartment.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
 
                 return RedirectToAction("GetDepartments");
             }
@@ -132,6 +139,9 @@ namespace ArizaApp.Controllers
             DbContext.Departments.Remove(department);
             await DbContext.SaveChangesAsync();
 
+            var message = $"Department Deleted: {department.DepartmentName}";
+            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.DeleteDepartment.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+            
             return RedirectToAction("GetDepartments");
         }
     }

@@ -1,11 +1,14 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using ArizaApp.Helpers;
 using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Dtos;
 using ArizaApp.Models.Entities;
 using ArizaApp.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +26,9 @@ namespace ArizaApp.Controllers
         public IActionResult Index()
         {
             ViewBag.CurrentUser = CurrentUser;
+            var message = $"User Login: {CurrentUser.UserName}";
+            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.Login.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+
             return View();
         }
 
@@ -66,7 +72,7 @@ namespace ArizaApp.Controllers
                     if (result.Succeeded)
                     {
                         // await UserManager.ResetAccessFailedCountAsync(user);
-
+                        
                         if (TempData["ReturnUrl"] != null) return Redirect(TempData["ReturnUrl"].ToString());
 
                         return RedirectToAction("Index", "Home");
@@ -110,6 +116,9 @@ namespace ArizaApp.Controllers
         public IActionResult LogOut()
         {
             SignInManager.SignOutAsync();
+            var message = $"User Logout: {CurrentUser.UserName}";
+            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.Logout.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+
             return RedirectToAction("LogIn");
         }
 

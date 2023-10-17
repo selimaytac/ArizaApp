@@ -1,0 +1,42 @@
+@model IList<ArizaApp.Models.Entities.LogRecord>
+
+@{
+    ViewBag.Title = "Sistem Logları";
+    Layout = "_Layout";
+}
+
+<table id="getUsers" class="display table table-bordered" style="width:100%">
+    <thead>
+    <tr>
+        <th>Açıklama</th>
+        <th>Event</th>
+        <th>Kullanıcı</th>
+        <th>Date</th>
+        <th>Ip Address</th>
+        <th>Port</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var log in Model)
+    {
+        <tr>
+            <td>@log.Message</td>
+            <td>@log.LogType</td>
+            <td>@log.UserName</td>
+            <td>@log.Date</td>
+            <td>@log.IpAddress</td>
+            <td>@log.Port</td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Açıklama</th>
+        <th>Event</th>
+        <th>Kullanıcı</th>
+        <th>Date</th>
+        <th>Ip Address</th>
+        <th>Port</th>
+    </tr>
+    </tfoot>
+</table>

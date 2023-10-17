@@ -4,14 +4,16 @@ using ArizaApp.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArizaApp.Migrations
 {
     [DbContext(typeof(ArizaDbContext))]
-    partial class ArizaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231012085107_LogModelAdded")]
+    partial class LogModelAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,9 +68,6 @@ namespace ArizaApp.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -295,6 +294,7 @@ namespace ArizaApp.Migrations
                         .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("IpAddress")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -304,10 +304,12 @@ namespace ArizaApp.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Port")
+                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 

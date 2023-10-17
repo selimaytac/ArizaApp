@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArizaApp.Helpers;
 using ArizaApp.Models.ConstTypes;
 using ArizaApp.Models.DbContexts;
 using ArizaApp.Models.Dtos;
@@ -67,6 +69,10 @@ namespace ArizaApp.Controllers
                 });
 
                 await DbContext.SaveChangesAsync();
+                
+                var message = $"Firm Created: {createFirmDto.FirmName}";
+                GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.FirmCreated.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+
                 return RedirectToAction("GetFirms");
             }
 
@@ -132,6 +138,10 @@ namespace ArizaApp.Controllers
                 firm.Emails = updatedFirmEmails;
 
                 await DbContext.SaveChangesAsync();
+                
+                var message = $"Firm Updated: {updateFirmDto.FirmName}";
+                GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.FirmUpdated.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+                
                 return RedirectToAction("GetFirms");
             }
 
@@ -165,6 +175,9 @@ namespace ArizaApp.Controllers
 
             DbContext.FirmRecords.Remove(firm);
             await DbContext.SaveChangesAsync();
+
+            var message = $"Firm Deleted: {firm.FirmName}";
+            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.FirmDeleted.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
 
             return RedirectToAction("GetFirms");
         }

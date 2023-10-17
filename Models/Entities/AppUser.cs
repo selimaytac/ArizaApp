@@ -18,5 +18,7 @@ namespace ArizaApp.Models.Entities
         public IEnumerable<UploadedFileRecords> UploadedFileRecords { get; set; }
         public int SendCount { get; set; } = 0;
         public string? Note { get; set; }
+        
+        public bool IsActive { get; set; } = true;
     }
 }

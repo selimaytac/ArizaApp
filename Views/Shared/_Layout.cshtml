@@ -82,11 +82,19 @@
             @if (User.IsInRole(RoleTypes.Admin))
             {
                 <li class="nav-item">
-                    <a class="nav-link text-white " asp-controller="Admin" asp-action="GetUsers">
+                    <a class="nav-link text-white " asp-controller="Admin" asp-action="GetUsers" asp-route-isDeleted="False">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">people</i>
                         </div>
                         <span class="nav-link-text ms-1">Tüm Kullanıcılar</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white " asp-controller="Admin" asp-action="GetUsers" asp-route-isDeleted="True">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">people</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Silinmiş Kullanıcılar</span>
                     </a>
                 </li>
                 <li class="nav-item">

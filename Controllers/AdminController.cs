@@ -45,9 +45,9 @@ namespace ArizaApp.Controllers
 
         [HttpGet]
         [Authorize(Roles = RoleTypes.Admin)]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers(bool isDeleted = false)
         {
-            var users = UserManager.Users.Include(r => r.Department).ToList();
+            var users = UserManager.Users.Include(r => r.Department).Where(u => u.IsActive == !isDeleted).ToList();
 
             var userDtos = (from user in users
                 select new UserDto
@@ -60,11 +60,14 @@ namespace ArizaApp.Controllers
                     RoleName = (from role in UserManager.GetRolesAsync(user).Result select role).FirstOrDefault() ??
                                "Rol Yok",
                     Note = user.Note,
-                    SendCount = user.SendCount
+                    SendCount = user.SendCount,
+                    Id = user.Id,
+                    IsActive = user.IsActive
                 }).ToList();
 
             return View(userDtos);
         }
+
 
         [HttpPost]
         [Authorize(Roles = RoleTypes.Admin)]
@@ -96,8 +99,15 @@ namespace ArizaApp.Controllers
                             // add user to role || if role not exist, add Viewer role to the new user
                             await UserManager.AddToRoleAsync(user, role!.Name ?? "Viewer");
 
-                            var message = $"User Created with username: {createUserDto.UserName} by {CurrentUser.UserName}";
-                            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.CreateUser.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+                            var message =
+                                $"User Created with username: {createUserDto.UserName} by {CurrentUser.UserName}";
+                            GeneralLogger.AddLog(DbContext,
+                                new LogRecord
+                                {
+                                    IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now,
+                                    LogType = LogTypes.CreateUser.ToString(), Message = message,
+                                    Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName
+                                });
 
                             return RedirectToAction("GetUsers");
                         }
@@ -182,35 +192,72 @@ namespace ArizaApp.Controllers
             }
 
             var message = $"User changed password with username: {CurrentUser.UserName}";
-            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.ChangePassword.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
-            
+            GeneralLogger.AddLog(DbContext,
+                new LogRecord
+                {
+                    IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now,
+                    LogType = LogTypes.ChangePassword.ToString(), Message = message,
+                    Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName
+                });
+
             return View(changePasswordDto);
         }
-        
+
         [HttpGet]
         [Authorize(Roles = RoleTypes.Admin)]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
-            
+
             if (user == null) return RedirectToAction("GetUsers");
-            
+
             user.IsActive = false;
             await UserManager.UpdateAsync(user);
-             
-            var message = $"User deactivated with username: {user.UserName} by {CurrentUser.UserName}";
-            GeneralLogger.AddLog(DbContext, new LogRecord{ IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now, LogType = LogTypes.DeleteUser.ToString(), Message = message, Port = RequestHelper.GetPort(Request), UserName = CurrentUser.UserName});
+
+            var message = $"User deleted with username: {user.UserName} by {CurrentUser.UserName}";
+            GeneralLogger.AddLog(DbContext,
+                new LogRecord
+                {
+                    IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now,
+                    LogType = LogTypes.DeleteUser.ToString(), Message = message, Port = RequestHelper.GetPort(Request),
+                    UserName = CurrentUser.UserName
+                });
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("GetUsers");
         }
-    
+
         [HttpGet]
         [Authorize(Roles = RoleTypes.Admin)]
-        public async Task<IActionResult> SystemLogs()
+        public async Task<IActionResult> ActivateUser(string id)
         {
-            var logs = await DbContext.LogRecords.OrderByDescending(x => x.Date).ToListAsync();
-            
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user == null) return RedirectToAction("GetUsers");
+
+            user.IsActive = true;
+            await UserManager.UpdateAsync(user);
+
+            var message = $"User activated with username: {user.UserName} by {CurrentUser.UserName}";
+            GeneralLogger.AddLog(DbContext,
+                new LogRecord
+                {
+                    IpAddress = RequestHelper.GetIpAddress(Request), Date = DateTime.Now,
+                    LogType = LogTypes.DeleteUser.ToString(), Message = message, Port = RequestHelper.GetPort(Request),
+                    UserName = CurrentUser.UserName
+                });
+
+
+            return RedirectToAction("GetUsers");
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = RoleTypes.Admin)]
+        public async Task<IActionResult> SystemLogs(int limit = 500)
+        {
+            var logs = await DbContext.LogRecords.OrderByDescending(l => l.Date).Take(limit).ToListAsync();
+
             return View(logs);
         }
     }

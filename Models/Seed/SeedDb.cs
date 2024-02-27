@@ -51,9 +51,9 @@ namespace ArizaApp.Models.Seed
         {
             var context = serviceProvider.GetService<ArizaDbContext>();
 
-            if (context.Roles.Count() < 3)
+            if (context.Roles.Count() < 4)
             {
-                var roles = new string[] {"Admin", "Editor", "Viewer"};
+                var roles = new string[] {"Admin", "Editor", "Viewer", "PlannedEditor"};
 
                 foreach (var role in roles)
                 {

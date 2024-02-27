@@ -1,4 +1,6 @@
-﻿@model List<ArizaApp.Models.Entities.ArizaModel>
+﻿@using System.Linq
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model System.Collections.Generic.List<ArizaApp.Models.Entities.ArizaModel>
 
 @{
     ViewBag.Title = @Model.FirstOrDefault().FaultType + " Bildirileri";

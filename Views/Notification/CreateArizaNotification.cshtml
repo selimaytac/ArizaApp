@@ -1,4 +1,5 @@
-﻿@model ArizaApp.Models.Dtos.CreateArizaNotificationDto
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model ArizaApp.Models.Dtos.CreateArizaNotificationDto
 
 @{
     ViewBag.Title = "Yeni Bildiri";
@@ -25,10 +26,13 @@
             <div class="form-group">
                 <label asp-for="FaultType" class="control-label"></label>
                 <select class="form-control" asp-for="FaultType">
-                    <option value="Arıza">Arıza</option>
+                    @if (!User.IsInRole("PlannedEditor"))
+                    {
+                        <option value="Arıza">Arıza</option>
+                    }
                     <option value="Planlı Çalışma">Planlı Çalışma</option>
                 </select>
-                <span asp-validation-for="FaultType" class="text-danger"></span>
+                <span asp-validation-for="FaultType" class="text-danger"></span> 
             </div>
             <div class="form-group">
                 <label asp-for="State" class="control-label"></label>

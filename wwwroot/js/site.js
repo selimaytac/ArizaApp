@@ -20,6 +20,8 @@ function ChangePlanliCalisma() {
     $('input[name="ApprovedBy"]').val('-');
     $('input[name="AffectedFirms"]').val('-');
     $('input[name="FailureCause"]').val('-');
+    $('#no-fault').hide();
+    $('#no-plan').show();
 }
 
 function changeAriza() {
@@ -30,6 +32,8 @@ function changeAriza() {
     $('#State').parent().show();
     $('#NotifiedBy').parent().find('label').html("Problem İle İlgilenen Ekip");
     $('#AffectedServices').parent().find('label').html("Etkilenen Servisler");
+    $('#no-fault').show();
+    $('#no-plan').hide();
 }
 
 $('#State').change(function () {

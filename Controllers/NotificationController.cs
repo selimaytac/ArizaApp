@@ -26,8 +26,8 @@ namespace ArizaApp.Controllers
         private readonly IFileUploadService _fileUploadService;
 
         public NotificationController(ArizaDbContext dbContext, IMailSenderService mailSenderService,
-            UserManager<AppUser> userManager, IFileUploadService fileUploadService)
-            : base(userManager, null, null, dbContext)
+            UserManager<AppUser> userManager, IFileUploadService fileUploadService, RoleManager<AppRole> roleManager)
+            : base(userManager, null, roleManager, dbContext)
         {
             _mailSenderService = mailSenderService;
             _fileUploadService = fileUploadService;
@@ -46,6 +46,9 @@ namespace ArizaApp.Controllers
         [Authorize(Roles = RoleTypes.AdminEditor)]
         public async Task<IActionResult> CreateArizaNotification()
         {
+            ViewBag.planliCalismaNo = await DbContext.ArizaModels.Where(x => x.FaultType == "Planlı Çalışma").OrderByDescending(x => x.Id).Select(x => x.FaultNo).Distinct().Take(3).ToListAsync();
+            ViewBag.arizaNo = await DbContext.ArizaModels.Where(x => x.FaultType == "Arıza").OrderByDescending(x => x.Id).Select(x => x.FaultNo).Distinct().Take(3).ToListAsync();
+            
             ViewBag.Firms = await DbContext.FirmRecords.OrderBy(f => f.FirmName).ToListAsync();
 
             return View();
@@ -108,6 +111,11 @@ namespace ArizaApp.Controllers
                 .Include(x => x.UploadedFileRecords)
                 .Include(x => x.Firms)
                 .FirstOrDefaultAsync(x => x.Id == id);
+            
+            if (User.IsInRole(RoleTypes.PlannedEditor) && notificationModel.FaultType == "Arıza")
+            {
+                return RedirectToAction("AccessDenied", "Home");
+            }
             
             ViewBag.AllFirms = 
                 await DbContext.FirmRecords

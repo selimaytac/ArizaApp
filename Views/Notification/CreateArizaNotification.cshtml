@@ -18,6 +18,28 @@
                 <input asp-for="MailSubject" class="form-control"/>
                 <span asp-validation-for="MailSubject" class="text-danger"></span>
             </div>
+            @if (ViewBag.arizaNo != null)
+               {
+                   <div class="font-weight-bold" id="no-fault">
+                       
+                       Son 3 Arıza numarası: <span class="text-info">\</span>
+                       @foreach (var item in ViewBag.arizaNo)
+                       {
+                           <span class="text-info"> @item \  </span>
+                       }
+                   </div>       
+               }
+            
+            @if(ViewBag.planliCalismaNo != null)
+            {
+                <div class="font-weight-bold" id="no-plan">
+                    Son 3 Planlı Çalışma numarası: <span class="text-info">\</span> 
+                    @foreach (var item in ViewBag.planliCalismaNo)
+                    {
+                        <span class="text-info"> @item \ </span>
+                    }
+                </div>
+            }
             <div class="form-group">
                 <label asp-for="FaultNo" class="control-label"></label>
                 <input asp-for="FaultNo" class="form-control"/>
@@ -61,7 +83,7 @@
 
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
-                <p class="text-muted">Lütfen tarihi 15.01.2023 10:00 örneğindeki gibi giriniz.</p>
+                <p class="text-muted">Lütfen tarihi <span class="text-info">15.01.2023 10:00</span> örneğindeki gibi giriniz.</p>
                 <input asp-for="StartDate" class="form-control"/>
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>

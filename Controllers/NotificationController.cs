@@ -46,8 +46,8 @@ namespace ArizaApp.Controllers
         [Authorize(Roles = RoleTypes.AdminEditor)]
         public async Task<IActionResult> CreateArizaNotification()
         {
-            ViewBag.planliCalismaNo = await DbContext.ArizaModels.Where(x => x.FaultType == "Planlı Çalışma").OrderByDescending(x => x.Id).Select(x => x.FaultNo).Distinct().Take(3).ToListAsync();
-            ViewBag.arizaNo = await DbContext.ArizaModels.Where(x => x.FaultType == "Arıza").OrderByDescending(x => x.Id).Select(x => x.FaultNo).Distinct().Take(3).ToListAsync();
+            ViewBag.planliCalismaNo = await DbContext.ArizaModels.Where(x => x.FaultType == "Planlı Çalışma").OrderBy(x => x.Id).Select(x => x.FaultNo).Distinct().Take(3).ToListAsync();
+            ViewBag.arizaNo = await DbContext.ArizaModels.Where(x => x.FaultType == "Arıza").OrderBy(x => x.Id).Select(x => x.FaultNo).Distinct().Take(3).ToListAsync();
             
             ViewBag.Firms = await DbContext.FirmRecords.OrderBy(f => f.FirmName).ToListAsync();
 
